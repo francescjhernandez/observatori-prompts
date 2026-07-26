@@ -6,9 +6,11 @@ import { pt } from './pt.js';
 const translations = { ca, es, en, pt };
 
 /**
- * Mapeig de compatibilitat per a claus soles que en els fics JS estan anidades.
+ * Mapeig de compatibilitat per a claus soles que en els fics JS estan anidades
+ * o claus utilitzades directament en l'HTML.
  */
 const FALLBACK_MAP = {
+  'header_title': 'instructions.header_title',
   'instructions_title': 'instructions.title',
   'step_1': 'instructions.step_1',
   'step_2': 'instructions.step_2',
@@ -16,8 +18,18 @@ const FALLBACK_MAP = {
   'step_upload': 'instructions.upload_note',
   'btn_download': 'instructions.download_form',
   'search_placeholder': 'instructions.search_placeholder',
-  'header_title': 'instructions.header_title',
-  'btn_admin': 'instructions.upload_btn'
+  'btn_admin': 'instructions.upload_btn',
+  'btn_upload_prompts': 'instructions.upload_btn',
+  'page_title': 'header_title',
+  'admin_panel_title': 'form.admin_panel_title',
+  'prompt_title_label': 'form.prompt_title_label',
+  'prompt_author_label': 'form.prompt_author_label',
+  'prompt_cat_label': 'form.prompt_cat_label',
+  'prompt_body_label': 'form.prompt_body_label',
+  'prompt_body_help': 'form.prompt_body_help',
+  'btn_cancel': 'form.btn_cancel',
+  'btn_save_prompt': 'form.btn_save_prompt',
+  'footer_text': 'footer_text'
 };
 
 /**
@@ -27,6 +39,8 @@ const FALLBACK_MAP = {
  * @returns {string}
  */
 export function t(path, lang = 'ca') {
+  if (!path) return '';
+
   const currentLang = translations[lang] || translations.ca;
   
   // 1. Si la clau existeix directament en l'arrel de l'objecte (clau plana)
