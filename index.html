@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="header_title">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO</title>
-    
+    <title data-i18n="page_title">Observatorio de Igualdad Educativa Inclusivo</title>
     <style>
-        /* --- ESTILOS GENERALES Y REPETICIÓN DE VARIABLES --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
             background-color: #f8fafc;
-            color: #1e293b;
+            color: #0f172a;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        /* --- CABECERA Y SELECTOR DE IDIOMAS --- */
+        /* --- CABECERA --- */
         header {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: #ffffff;
@@ -46,15 +44,18 @@
             gap: 0.75rem;
         }
 
-        .logo-icon {
-            font-size: 1.8rem;
+        h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
         }
 
-        .logo-title h1 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            color: #f8fafc;
+        /* Selector de idiomas y botón de administración */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .lang-selector {
@@ -63,7 +64,6 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding: 4px;
             border-radius: 8px;
-            backdrop-filter: blur(8px);
         }
 
         .lang-btn {
@@ -87,74 +87,210 @@
             background-color: #2563eb;
             color: #ffffff;
             font-weight: 600;
-            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-admin {
+            background-color: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-admin:hover {
+            background-color: #475569;
+            border-color: #64748b;
         }
 
         /* --- CONTENIDO PRINCIPAL --- */
         main {
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
-            margin: 2.5rem auto;
+            margin: 2rem auto;
             padding: 0 1.5rem;
             flex: 1;
         }
 
-        .intro-section {
+        .hero-banner {
             background-color: #ffffff;
-            padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 1.75rem;
             margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
             border-left: 5px solid #2563eb;
         }
 
-        .intro-section h2 {
-            margin-bottom: 0.75rem;
-            color: #0f172a;
-            font-size: 1.4rem;
-        }
-
-        .intro-section p {
+        .hero-banner p {
             color: #475569;
             line-height: 1.6;
-            font-size: 0.98rem;
+            font-size: 1.05rem;
         }
 
-        /* --- FILTRO DE DESPLEGABLE --- */
-        .filter-container {
+        /* Barra de búsqueda */
+        .search-bar {
             margin-bottom: 2rem;
         }
 
-        #subject-filter {
+        .search-bar input {
             width: 100%;
-            padding: 0.85rem 1rem;
-            font-size: 0.98rem;
+            padding: 0.85rem 1.25rem;
+            font-size: 1rem;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
-            background-color: #ffffff;
-            color: #0f172a;
-            cursor: pointer;
             outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.2s ease;
         }
 
-        #subject-filter:focus {
+        .search-bar input:focus {
             border-color: #2563eb;
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
         }
 
-        /* --- CARDS DE PROMPTS Y CARGA --- */
-        #prompts-container {
-            display: flex;
-            flex-direction: column;
+        /* Rejilla de prompts */
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.5rem;
         }
 
-        .loading-text {
-            text-align: center;
-            color: #64748b;
+        .prompt-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .prompt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .prompt-badge {
+            align-self: flex-start;
+            background-color: #eff6ff;
+            color: #1e40af;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .prompt-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .prompt-body {
+            color: #475569;
+            font-size: 0.925rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .btn-copy {
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-copy:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* --- MODAL DE ADMINISTRACIÓN Y REVISIÓN --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
             padding: 2rem;
-            font-style: italic;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .modal-box input, .modal-box textarea, .modal-box select {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .btn-cancel {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-save {
+            background-color: #16a34a;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         /* --- PIE DE PÁGINA --- */
@@ -175,65 +311,80 @@
     <header>
         <div class="header-container">
             <div class="logo-title">
-                <span class="logo-icon">🎓</span>
-                <h1 data-i18n="header_title">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO</h1>
+                <span>🎓</span>
+                <h1 data-i18n="main_title">Observatorio de Igualdad Educativa Inclusivo</h1>
             </div>
             
-            <!-- Selector de Idiomas -->
-            <div class="lang-selector">
-                <button onclick="setLanguage('es')" id="btn-es" class="lang-btn active">Castellano</button>
-                <button onclick="setLanguage('ca')" id="btn-ca" class="lang-btn">Català / Valencià</button>
-                <button onclick="setLanguage('pt-BR')" id="btn-pt" class="lang-btn">Português (BR)</button>
-                <button onclick="setLanguage('en')" id="btn-en" class="lang-btn">English</button>
+            <div class="header-actions">
+                <!-- Selector de idioma -->
+                <div class="lang-selector">
+                    <button id="btn-es" class="lang-btn active">Castellano</button>
+                    <button id="btn-ca" class="lang-btn">Català / Valencià</button>
+                    <button id="btn-pt" class="lang-btn">Português (BR)</button>
+                    <button id="btn-en" class="lang-btn">English</button>
+                </div>
+
+                <!-- Botón de administración -->
+                <button id="admin-login-btn" class="btn-admin">
+                    🔒 <span data-i18n="btn_admin">Administración</span>
+                </button>
             </div>
         </div>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <section class="intro-section">
-            <h2 data-i18n="repo_title">Repositorio Abierto de Prompts para Educación</h2>
-            <p data-i18n="repo_description">
-                Puedes descargar prompts para elaborar con la IA tus programaciones didácticas. Busca los prompts que necesites, sigue sus indicaciones para introducir los datos de tu alumnado, cárgalo en una IA (ChatGPT, Gemini, Kimi, NotebookLM, etc.) y automáticamente se elaborará tu programación didáctica adaptada. Si dispones de prompts contrastados o has mejorado los del portal, apórtalos para que otros docentes puedan utilizarlos.
+        <div class="hero-banner">
+            <p data-i18n="subtitle">
+                Repositorio abierto de prompts para la elaboración de programaciones didácticas adaptadas e inclusivas mediante Inteligencia Artificial.
             </p>
-        </section>
-
-        <!-- Filtro por materias (Claves internas neutras) -->
-        <div class="filter-container">
-            <select id="subject-filter" onchange="filterPrompts()">
-                <option value="all" data-i18n="cat_all">Todas las materias</option>
-                <option value="medio_natural" data-i18n="cat_medio_natural">Conocimiento del Medio / Ciencias Naturales y Sociales</option>
-                <option value="bio_geo" data-i18n="cat_bio_geo">Biología, Geología y Ciencias Ambientales</option>
-                <option value="fis_qui" data-i18n="cat_fis_qui">Física y Química</option>
-                <option value="geo_hist" data-i18n="cat_geo_hist">Geografía e Historia / Historia del Arte</option>
-                <option value="lengua_cast" data-i18n="cat_lengua_cast">Lengua Castellana y Literatura</option>
-                <option value="lengua_coof" data-i18n="cat_lengua_coof">Lengua Cooficial (Valenciano / Catalán / Gallego / Euskera)</option>
-                <option value="lengua_ext" data-i18n="cat_lengua_ext">Lengua Extranjera (Inglés, Francés, Alemán...)</option>
-                <option value="matematicas" data-i18n="cat_matematicas">Matemáticas</option>
-                <option value="filosofia" data-i18n="cat_filosofia">Filosofía y Valores Cívicos</option>
-                <option value="ed_fisica" data-i18n="cat_ed_fisica">Educación Física</option>
-                <option value="ed_plastica" data-i18n="cat_ed_plastica">Educación Artística, Plástica y Visual</option>
-                <option value="musica" data-i18n="cat_musica">Música y Artes Escénicas</option>
-                <option value="tecnologia" data-i18n="cat_tecnologia">Tecnología, Digitalización e Ingeniería</option>
-                <option value="economia" data-i18n="cat_economia">Economía, Emprendimiento y Empresa</option>
-                <option value="clasicas" data-i18n="cat_clasicas">Cultura Clásica, Latín y Griego</option>
-                <option value="fp" data-i18n="cat_fp">Formación Profesional (FP)</option>
-                <option value="inclusion" data-i18n="cat_inclusion">Inclusión, Atención a la Diversidad y Orientación</option>
-                <option value="general" data-i18n="cat_general">General / Transversal</option>
-            </select>
         </div>
 
-        <!-- Contenedor del Catálogo de Prompts -->
-        <div id="prompts-container">
-            <div class="loading-text" data-i18n="loading">Cargando catálogo de prompts...</div>
+        <div class="search-bar">
+            <input type="text" id="search-input" data-i18n-placeholder="search_placeholder" placeholder="Buscar prompts por palabra clave, materia, nivel...">
         </div>
+
+        <!-- Contenedor dinámico de prompts -->
+        <div id="prompts-container" class="prompts-grid"></div>
     </main>
+
+    <!-- MODAL DE ACCESO / PANEL DE ADMINISTRACIÓN -->
+    <div id="admin-modal" class="modal-backdrop">
+        <div class="modal-box">
+            <!-- Vista 1: Login -->
+            <div id="admin-auth-view">
+                <h3 data-i18n="admin_login_title">Acceso de Administración</h3>
+                <input type="password" id="admin-password" placeholder="Contraseña de administrador">
+                <div class="modal-actions">
+                    <button id="btn-close-modal" class="btn-cancel" data-i18n="modal_close">Cancelar</button>
+                    <button id="btn-submit-auth" class="btn-save" data-i18n="btn_enter">Entrar</button>
+                </div>
+            </div>
+
+            <!-- Vista 2: Panel de Gestión para añadir/aprobar Prompts -->
+            <div id="admin-panel-view" style="display: none;">
+                <h3 data-i18n="admin_panel_title">Panel de Gestión de Prompts</h3>
+                <input type="text" id="new-prompt-title" placeholder="Título del Prompt">
+                <select id="new-prompt-category">
+                    <option value="Generales">Generales</option>
+                    <option value="Adaptaciones">Adaptaciones / NEAE</option>
+                    <option value="Evaluación">Evaluación Inclusiva</option>
+                </select>
+                <textarea id="new-prompt-body" rows="5" placeholder="Escribe aquí el contenido del prompt..."></textarea>
+                <div class="modal-actions">
+                    <button id="btn-close-panel" class="btn-cancel" data-i18n="modal_close">Cerrar</button>
+                    <button id="btn-save-prompt" class="btn-save" data-i18n="btn_add_prompt">Guardar Prompt</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- PIE DE PÁGINA -->
     <footer>
-        <p data-i18n="footer_text">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Plataforma libre para docentes.</p>
+        <p data-i18n="footer_text">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València</p>
     </footer>
 
+    <!-- SCRIPT JS -->
     <script src="script.js"></script>
 </body>
 </html>
