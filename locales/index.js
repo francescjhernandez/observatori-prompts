@@ -7,7 +7,7 @@ const translations = { ca, es, en, pt };
 
 /**
  * Retorna el text traduït segons la clau i l'idioma.
- * @param {string} path - Camí de la clau (ex: 'subjects.history')
+ * @param {string} path - Camí de la clau (ex: 'form.btn_upload_prompts')
  * @param {string} lang - Idioma ('ca', 'es', 'en', 'pt')
  * @returns {string}
  */
