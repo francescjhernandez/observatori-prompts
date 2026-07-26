@@ -114,6 +114,7 @@
             padding: 0;
             font-size: 0.95rem;
             line-height: 1.5;
+            list-style-type: decimal;
         }
 
         .instruction-footer {
@@ -377,9 +378,9 @@
         <div class="instruction-banner">
             <h2 data-i18n="instructions_title">PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, HAS DE:</h2>
             <ol class="instructions-list">
-                <li data-i18n="step_1">1) Descarregar i omplir el formulari.</li>
-                <li data-i18n="step_2">2) Descarregar o copiar el prompt.</li>
-                <li data-i18n="step_3">3) Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
+                <li data-i18n="step_1">Descarregar i omplir el formulari.</li>
+                <li data-i18n="step_2">Descarregar o copiar el prompt.</li>
+                <li data-i18n="step_3">Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
             </ol>
             <p class="instruction-footer" data-i18n="step_upload">
                 Si vols pujar un prompt a la plataforma, utilitza el botó «Administració» i ompli el formulari.
@@ -420,26 +421,26 @@
                     <select id="new-prompt-category" required>
                         <option value="" disabled selected data-i18n="select_category_default">-- Selecciona una opció --</option>
                         <optgroup label="Àmbits Transversals i Especials" data-group="group_transversal">
-                            <option value="Competència Digital">Competència Digital</option>
-                            <option value="Inclusió i Diversitat">Inclusió i Diversitat</option>
+                            <option value="Competència Digital | Competencia Digital | Competência Digital | Digital Competence">Competència Digital / Digital Competence</option>
+                            <option value="Inclusió i Diversitat | Inclusión y Diversidad | Inclusão e Diversidade | Inclusion & Diversity">Inclusió i Diversitat / Inclusion & Diversity</option>
                         </optgroup>
                         <optgroup label="Matèries i Àrees (LOMLOE i BNCC)" data-group="group_subjects">
-                            <option value="Biologia i Geologia">Biologia i Geologia</option>
-                            <option value="Ciències Socials / Geografia i Història">Ciències Socials / Geografia i Història</option>
-                            <option value="Dibuix / Educació Plàstica, Visual i Audiovisual">Dibuix / Educació Plàstica, Visual i Audiovisual</option>
-                            <option value="Educació Física">Educació Física</option>
-                            <option value="Filosofia">Filosofia</option>
-                            <option value="Física i Química">Física i Química</option>
-                            <option value="Llengua Castellana i Literatura">Llengua Castellana i Literatura</option>
-                            <option value="Llengua Cooficial i Literatura (Valencià)">Llengua Cooficial i Literatura (Valencià)</option>
-                            <option value="Llengües Estrangeres / Anglès">Llengües Estrangeres / Anglès</option>
-                            <option value="Matemàtiques">Matemàtiques</option>
-                            <option value="Música">Música</option>
-                            <option value="Sociologia">Sociologia</option>
-                            <option value="Valors Cívics i Ètics / Ensino Religioso">Valors Cívics i Ètics / Ensino Religioso</option>
+                            <option value="Biologia i Geologia | Biología y Geología | Biologia e Geologia | Biology and Geology">Biologia i Geologia</option>
+                            <option value="Ciències Socials / Geografia i Història | Ciencias Sociales / Geografía e Historia | Ciências Socials / História e Geografia | Social Sciences / Geography and History">Ciències Socials / Geografia i Història</option>
+                            <option value="Dibuix / Educació Plàstica, Visual i Audiovisual | Dibujo / Educación Plástica, Visual y Audiovisual | Artes / Educação Plástica, Visual e Audiovisual | Drawing / Visual and Audiovisual Arts Education">Dibuix / Educació Plàstica, Visual i Audiovisual</option>
+                            <option value="Educació Física | Educación Física | Educação Física | Physical Education">Educació Física</option>
+                            <option value="Filosofia | Filosofía | Filosofia | Philosophy">Filosofia</option>
+                            <option value="Física i Química | Física y Química | Física e Química | Physics and Chemistry">Física i Química</option>
+                            <option value="Llengua Castellana i Literatura | Lengua Castellana y Literatura | Língua Espanhola / Língua Estrangeira | Spanish Language and Literature">Llengua Castellana i Literatura</option>
+                            <option value="Llengua Cooficial i Literatura (Valencià) | Lengua Cooficial y Literatura (Valencià) | Língua Portuguesa | Co-official Language and Literature">Llengua Cooficial i Literatura (Valencià)</option>
+                            <option value="Llengües Estrangeres / Anglès | Lenguas Extranjeras / Inglés | Língua Inglesa | Foreign Languages / English">Llengües Estrangeres / Anglès</option>
+                            <option value="Matemàtiques | Matemáticas | Matemática | Mathematics">Matemàtiques</option>
+                            <option value="Música | Música | Arte / Música | Music">Música</option>
+                            <option value="Sociologia | Sociología | Sociologia | Sociology">Sociologia</option>
+                            <option value="Valors Cívics i Ètics / Ensino Religioso | Valores Cívicos y Éticos / Enseñanza Religiosa | Ensino Religioso | Civic and Ethical Values / Religious Education">Valors Cívics i Ètics / Ensino Religioso</option>
                         </optgroup>
                         <optgroup label="Altres" data-group="group_others">
-                            <option value="Altres">Altres (Especificar)</option>
+                            <option value="Altres | Otros | Outros | Others">Altres (Especificar) / Others (Specify)</option>
                         </optgroup>
                     </select>
                 </div>
