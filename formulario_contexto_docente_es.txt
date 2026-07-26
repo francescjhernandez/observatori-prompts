@@ -1,0 +1,46 @@
+====================================================================
+  FORMULARIO DE DATOS DE CONTEXTO DOCENTE
+  Observatorio de Igualdad Educativa Inclusiva - Universitat de València
+====================================================================
+
+INSTRUCCIONES:
+Rellena los datos que conozcas sobre tu grupo o unidad. Copia este
+texto junto con el prompt correspondiente y pégalo todo en tu
+asistente de IA habitual (ChatGPT, Claude, Gemini, etc.).
+
+--------------------------------------------------------------------
+1. DATOS GENERALES Y DE LA ASIGNATURA
+--------------------------------------------------------------------
+- Área / Materia / Asignatura: 
+- Etapa y curso: [ej. 4º de Primaria, 1º de ESO, Formación Docente]
+- Título y objetivo de la unidad / guía: 
+- Número de sesiones o módulos: 
+
+--------------------------------------------------------------------
+2. CARACTERÍSTICAS DEL GRUPO Y ATENCIÓN A LA DIVERSIDAD
+--------------------------------------------------------------------
+- Número total de alumnado en el grupo: 
+- Número de alumnado con apoyo o en aula específica: 
+- Necesidades funcionales relevantes del grupo (sensoriales, motrices,
+  comunicativas, de regulación emocional o atencional — sin diagnóstico clínico):
+- Aspectos o contenidos que el docente ya sabe que suelen resultar
+  especialmente complejos o difíciles para este grupo: 
+
+--------------------------------------------------------------------
+3. NIVEL DE PARTIDA Y OBJETIVOS ESPECÍFICOS
+--------------------------------------------------------------------
+- Nivel de competencia digital / conocimientos de partida estimado: [A1 / A2 / B1 / B2 / C1]
+- Competencias objetivo, contenidos o técnicas concretas a trabajar: 
+
+--------------------------------------------------------------------
+4. RECURSOS, DOTACIÓN Y RESTRICCIONES
+--------------------------------------------------------------------
+- Dotación tecnológica y materiales disponibles: [dispositivos individuales,
+  aula de informática, software, materiales plásticos, instrumentos musicales, etc.]
+- Apoyos humanos disponibles en el aula: [especialista o educador/a de apoyo,
+  ratio, etc.]
+- Restricciones de espacio, tiempo o de la institución: [aula, patio, sala de
+  música, gimnasio, horarios, etc.]
+- Brecha digital o necesidades de acceso funcional detectadas: 
+
+====================================================================
