@@ -50,7 +50,6 @@
             color: #f8fafc;
         }
 
-        /* Selector de idiomas y botón de administración */
         .header-actions {
             display: flex;
             align-items: center;
@@ -118,19 +117,45 @@
             flex: 1;
         }
 
-        .hero-banner {
+        /* Caja de instrucciones de uso */
+        .instruction-banner {
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 1.75rem;
+            padding: 1.75rem 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-            border-left: 5px solid #2563eb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid #2563eb;
         }
 
-        .hero-banner p {
+        .instruction-banner h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .instructions-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .instructions-list li {
+            color: #334155;
+            font-size: 0.98rem;
+            line-height: 1.5;
+        }
+
+        .instruction-footer {
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
             color: #475569;
-            line-height: 1.6;
-            font-size: 1.05rem;
+            font-size: 0.925rem;
+            font-weight: 500;
         }
 
         /* Barra de búsqueda */
@@ -224,7 +249,7 @@
             background-color: #1d4ed8;
         }
 
-        /* --- MODAL DE ADMINISTRACIÓN Y REVISIÓN --- */
+        /* --- MODAL DE ADMINISTRACIÓN --- */
         .modal-backdrop {
             position: fixed;
             top: 0;
@@ -316,7 +341,6 @@
             </div>
             
             <div class="header-actions">
-                <!-- Selector de idioma -->
                 <div class="lang-selector">
                     <button id="btn-es" class="lang-btn active">Castellano</button>
                     <button id="btn-ca" class="lang-btn">Català / Valencià</button>
@@ -324,7 +348,6 @@
                     <button id="btn-en" class="lang-btn">English</button>
                 </div>
 
-                <!-- Botón de administración -->
                 <button id="admin-login-btn" class="btn-admin">
                     🔒 <span data-i18n="btn_admin">Administración</span>
                 </button>
@@ -334,12 +357,20 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <div class="hero-banner">
-            <p data-i18n="subtitle">
-                Repositorio abierto de prompts para la elaboración de programaciones didácticas adaptadas e inclusivas mediante Inteligencia Artificial.
+        <!-- Caja de instrucciones de uso -->
+        <div class="instruction-banner">
+            <h2 data-i18n="instructions_title">PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:</h2>
+            <ol class="instructions-list">
+                <li data-i18n="step_1">1) Descargar y rellenar el formulario.</li>
+                <li data-i18n="step_2">2) Descargar o copiar el prompt.</li>
+                <li data-i18n="step_3">3) Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
+            </ol>
+            <p class="instruction-footer" data-i18n="step_upload">
+                Si quieres subir un prompt a la plataforma, usa el botón «Administración» y rellena el formulario.
             </p>
         </div>
 
+        <!-- Buscador -->
         <div class="search-bar">
             <input type="text" id="search-input" data-i18n-placeholder="search_placeholder" placeholder="Buscar prompts por palabra clave, materia, nivel...">
         </div>
@@ -361,7 +392,7 @@
                 </div>
             </div>
 
-            <!-- Vista 2: Panel de Gestión para añadir/aprobar Prompts -->
+            <!-- Vista 2: Panel de Gestión para añadir Prompts -->
             <div id="admin-panel-view" style="display: none;">
                 <h3 data-i18n="admin_panel_title">Panel de Gestión de Prompts</h3>
                 <input type="text" id="new-prompt-title" placeholder="Título del Prompt">
