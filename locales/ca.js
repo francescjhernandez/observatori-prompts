@@ -7,7 +7,7 @@ export const ca = {
     history: "Història",
     geography: "Geografia",
     spanish_language: "Llengua Castellana i Literatura",
-    valencian_language: "Llengua Valenciana i Literatura",
+    valencian_language: "Llengua Valenciana / Catalana i Literatura",
     english: "Llengua Estrangera (Anglés)",
     french: "Llengua Estrangera (Francés)",
     mathematics: "Matemàtiques",
