@@ -9,6 +9,7 @@ export const en = {
     geography: "Geography",
     spanish_language: "Spanish Language and Literature",
     valencian_language: "Valencian/Catalan Language and Literature",
+    portuguese_language: "Portuguese Language and Literature",
     english: "English Language",
     french: "French Language",
     mathematics: "Mathematics",
