@@ -1,249 +1,202 @@
-// --- DICCIONARIO DE TRADUCCIONES ---
-const translations = {
-  es: {
-    page_title: "Observatorio de Igualdad Educativa Inclusivo",
-    main_title: "Observatorio de Igualdad Educativa Inclusivo",
-    instructions_title: "PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:",
-    step_1: "1) Descargar y rellenar el formulario.",
-    step_2: "2) Descargar o copiar el prompt.",
-    step_3: "3) Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    step_upload: "Si quieres subir un prompt a la plataforma, usa el botón «Administración» y rellena el formulario.",
-    search_placeholder: "Buscar prompts por palabra clave, materia, nivel...",
-    btn_admin: "Administración",
-    admin_login_title: "Acceso de Administración",
-    admin_panel_title: "Panel de Gestión de Prompts",
-    modal_close: "Cancelar",
-    btn_enter: "Entrar",
-    btn_add_prompt: "Guardar Prompt",
-    btn_copy: "Copiar Prompt",
-    btn_copied: "¡Copiado!",
-    footer_text: "PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València"
-  },
-  ca: {
-    page_title: "Observatori d'Igualtat Educativa Inclusiu",
-    main_title: "Observatori d'Igualtat Educativa Inclusiu",
-    instructions_title: "PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, CAL:",
-    step_1: "1) Descarregar i emplenar el formulari.",
-    step_2: "2) Descarregar o copiar el prompt.",
-    step_3: "3) Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    step_upload: "Si vols pujar un prompt a la plataforma, utilitza el botó «Administració» i emplena el formulari.",
-    search_placeholder: "Cercar prompts per paraula clau, matèria, nivell...",
-    btn_admin: "Administració",
-    admin_login_title: "Accés d'Administració",
-    admin_panel_title: "Panell de Gestió de Prompts",
-    modal_close: "Cancel·lar",
-    btn_enter: "Entrar",
-    btn_add_prompt: "Guardar Prompt",
-    btn_copy: "Copiar Prompt",
-    btn_copied: "Copiat!",
-    footer_text: "PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València"
-  },
-  "pt-BR": {
-    page_title: "Observatório de Igualdade Educativa Inclusivo",
-    main_title: "Observatório de Igualdade Educativa Inclusivo",
-    instructions_title: "PARA USAR OS PROMPTS DESTE REPOSITÓRIO, VOCÊ DEVE:",
-    step_1: "1) Baixar e preencher o formulário.",
-    step_2: "2) Baixar ou copiar o prompt.",
-    step_3: "3) Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    step_upload: "Se você quiser enviar um prompt para a plataforma, use o botão «Administração» e preencha o formulário.",
-    search_placeholder: "Pesquisar prompts por palavra-chave, matéria, nível...",
-    btn_admin: "Administração",
-    admin_login_title: "Acesso de Administração",
-    admin_panel_title: "Painel de Gestão de Prompts",
-    modal_close: "Cancelar",
-    btn_enter: "Entrar",
-    btn_add_prompt: "Salvar Prompt",
-    btn_copy: "Copiar Prompt",
-    btn_copied: "Copiado!",
-    footer_text: "PROJETO OBSERVATÓRIO DE IGUALDADE EDUCATIVA INCLUSIVO © 2026 — Universitat de València"
-  },
-  en: {
-    page_title: "Inclusive Educational Equality Observatory",
-    main_title: "Inclusive Educational Equality Observatory",
-    instructions_title: "TO USE THE PROMPTS IN THIS REPOSITORY, YOU MUST:",
-    step_1: "1) Download and fill out the form.",
-    step_2: "2) Download or copy the prompt.",
-    step_3: "3) Input the prompt and the form into an AI tool (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    step_upload: "If you want to upload a prompt to the platform, use the 'Administration' button and fill out the form.",
-    search_placeholder: "Search prompts by keyword, subject, level...",
-    btn_admin: "Administration",
-    admin_login_title: "Admin Access",
-    admin_panel_title: "Prompt Management Panel",
-    modal_close: "Cancel",
-    btn_enter: "Enter",
-    btn_add_prompt: "Save Prompt",
-    btn_copy: "Copy Prompt",
-    btn_copied: "Copied!",
-    footer_text: "INCLUSIVE EDUCATIONAL EQUALITY OBSERVATORY PROJECT © 2026 — Universitat de València"
-  }
+// ====================================================================
+// CONFIGURACIÓ I RUTES DELS FITXERS
+// ====================================================================
+
+// URLs directes als 4 formularis de context en GitHub (versió RAW)
+const formUrls = {
+  ca: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulari_context_docent_ca.txt",
+  es: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulario_contexto_docente_es.txt",
+  pt: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulario_contexto_docente_pt.txt",
+  en: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/teacher_context_form_en.txt"
 };
 
-// --- BASE DE DATOS INICIAL DE PROMPTS ---
+// Textos per al botó de descàrrega del formulari segons l'idioma
+const formButtonTexts = {
+  ca: "📥 Descarregar formulari de context",
+  es: "📥 Descargar formulario de contexto",
+  pt: "📥 Baixar formulário de contexto",
+  en: "📥 Download context form"
+};
+
+// Estructura base dels prompts (apuntant als fitxers externs de la carpeta /prompts/)
 const defaultPrompts = [
   {
     id: 1,
-    title: "Adaptación Curricular Individualizada (NEAE)",
-    category: "Adaptaciones",
-    body: "Actúa como un orientador educativo experto en DUA (Diseño Universal para el Aprendizaje). Diseña una adaptación para una unidad didáctica de Secundaria dirigida a un estudiante con TDAH, especificando metodologías activas, tiempo estimado y criterios de evaluación accesibles."
+    title: "Guía Docente de Competencia Digital (DigCompEdu + RNA)",
+    category: "Competència Digital",
+    file: "prompts/prompt-1-competencia-digital.txt",
+    body: "Cargando contenido..."
   },
   {
     id: 2,
-    title: "Rúbrica de Evaluación Inclusiva",
-    category: "Evaluación",
-    body: "Genera una rúbrica cualitativa en formato tabla para evaluar la competencia colaborativa en un proyecto de Ciencias Sociales de Educación Primaria, incorporando autoevaluación y coevaluación accesibles."
+    title: "Guía Docente de Inclusión (EF, Plástica y Música)",
+    category: "Inclusió i Diversitat",
+    file: "prompts/prompt-2-inclusion.txt",
+    body: "Cargando contenido..."
+  },
+  {
+    id: 3,
+    title: "Guía Docente de Didáctica de la Historia y Ciencias Sociales",
+    category: "Didàctiques Específiques",
+    file: "prompts/prompt-3-historia.txt",
+    body: "Cargando contenido..."
   }
 ];
 
-let currentLang = 'es';
+// Estat global de l'aplicació
+let currentLang = 'ca';
 let promptsData = [];
 
-// --- GESTIÓN DE IDIOMAS ---
-function setLanguage(lang) {
-  if (!translations[lang]) lang = 'es';
-  currentLang = lang;
+// ====================================================================
+// CÀRREGA DE CONTINGUTS I FITXERS EXTERNS
+// ====================================================================
 
-  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-  const activeBtnId = `btn-${lang.toLowerCase().replace('-br', '')}`;
-  const activeBtn = document.getElementById(activeBtnId);
-  if (activeBtn) activeBtn.classList.add('active');
-
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
+/**
+ * Carrega el text pla de cada prompt des dels fitxers .txt de la carpeta /prompts/
+ */
+async function loadPromptsContent() {
+  for (let p of promptsData) {
+    if (p.file) {
+      try {
+        const response = await fetch(p.file);
+        if (response.ok) {
+          p.body = await response.text();
+        } else {
+          console.warn(`No s'ha pogut carregar el fitxer: ${p.file}`);
+        }
+      } catch (error) {
+        console.error(`Error de xarxa en carregar el prompt ${p.file}:`, error);
+      }
     }
-  });
-
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (translations[lang] && translations[lang][key]) {
-      el.placeholder = translations[lang][key];
-    }
-  });
-
-  document.documentElement.lang = lang;
+  }
   renderPrompts(promptsData);
 }
 
-// --- RENDERIZADO DE PROMPTS Y BÚSQUEDA ---
-function renderPrompts(data) {
+// ====================================================================
+// INTERFÍCIE I RENDERITZAT
+// ====================================================================
+
+/**
+ * Pinta les targetes de prompts en el contenidor HTML
+ */
+function renderPrompts(promptsToRender) {
   const container = document.getElementById('prompts-container');
   if (!container) return;
 
-  const searchTerm = (document.getElementById('search-input')?.value || '').toLowerCase();
-  
-  const filtered = data.filter(p => 
-    p.title.toLowerCase().includes(searchTerm) || 
-    p.category.toLowerCase().includes(searchTerm) || 
-    p.body.toLowerCase().includes(searchTerm)
-  );
+  const searchQuery = document.getElementById('search-input')?.value.toLowerCase() || '';
+
+  const filtered = promptsToRender.filter(p => {
+    const matchesSearch = p.title.toLowerCase().includes(searchQuery) ||
+                          p.category.toLowerCase().includes(searchQuery) ||
+                          p.body.toLowerCase().includes(searchQuery);
+    return matchesSearch;
+  });
 
   if (filtered.length === 0) {
-    container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 2rem;">No se encontraron prompts que coincidan con la búsqueda.</p>`;
+    container.innerHTML = `<p class="no-results">No s'han trobat prompts que coincidisquen amb la cerca.</p>`;
     return;
   }
 
-  container.innerHTML = filtered.map(p => `
-    <div class="prompt-card">
-      <div>
-        <span class="prompt-badge">${p.category}</span>
-        <h3 class="prompt-title">${p.title}</h3>
-        <p class="prompt-body">${p.body}</p>
+  container.innerHTML = filtered.map(prompt => `
+    <article class="prompt-card" id="prompt-${prompt.id}">
+      <div class="prompt-header">
+        <span class="prompt-badge">${escapeHtml(prompt.category)}</span>
+        <h3>${escapeHtml(prompt.title)}</h3>
       </div>
-      <button class="btn-copy" onclick="copyToClipboard('${p.body.replace(/'/g, "\\'")}', this)">
-        ${translations[currentLang].btn_copy || 'Copiar Prompt'}
-      </button>
-    </div>
+      <div class="prompt-body">
+        <pre><code>${escapeHtml(prompt.body)}</code></pre>
+      </div>
+      <div class="prompt-actions">
+        <button class="btn-copy" onclick="copyPromptToClipboard(${prompt.id})">
+          📋 Copiar Prompt
+        </button>
+      </div>
+    </article>
   `).join('');
 }
 
-// --- COPIAR AL PORTAPAPELES ---
-function copyToClipboard(text, btnElement) {
-  navigator.clipboard.writeText(text).then(() => {
-    const originalText = btnElement.textContent;
-    btnElement.textContent = translations[currentLang].btn_copied || "¡Copiado!";
-    btnElement.style.backgroundColor = "#16a34a";
-    
-    setTimeout(() => {
-      btnElement.textContent = originalText;
-      btnElement.style.backgroundColor = "";
-    }, 2000);
-  });
+/**
+ * Copia el text d'un prompt al porta-retalls de l'usuari
+ */
+async function copyPromptToClipboard(id) {
+  const prompt = promptsData.find(p => p.id === id);
+  if (!prompt) return;
+
+  try {
+    await navigator.clipboard.writeText(prompt.body);
+    alert(" Prompt copiat al porta-retalls amb èxit!");
+  } catch (err) {
+    console.error("Error en copiar al porta-retalls:", err);
+    alert("No s'ha pogut copiar automàticament. Selecciona el text i copia'l manualment.");
+  }
 }
 
-// --- PANEL DE ADMINISTRACIÓN ---
-function setupAdminPanel() {
-  const adminBtn = document.getElementById('admin-login-btn');
-  const modal = document.getElementById('admin-modal');
-  const authView = document.getElementById('admin-auth-view');
-  const panelView = document.getElementById('admin-panel-view');
-  
-  const closeBtn = document.getElementById('btn-close-modal');
-  const closePanelBtn = document.getElementById('btn-close-panel');
-  const submitAuthBtn = document.getElementById('btn-submit-auth');
-  const savePromptBtn = document.getElementById('btn-save-prompt');
+// ====================================================================
+// GESTIÓ D'IDIOMES I MULTILINGÜISME
+// ====================================================================
 
-  if (!adminBtn || !modal) return;
+/**
+ * Canvia l'idioma actiu, actualitza el botó del formulari i la interfície
+ */
+function setLanguage(lang) {
+  currentLang = formUrls[lang] ? lang : 'ca';
 
-  adminBtn.addEventListener('click', () => {
-    modal.classList.add('active');
-    authView.style.display = 'block';
-    panelView.style.display = 'none';
+  // Actualitzar botons de selecció d'idioma en la UI
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `btn-${currentLang}`);
   });
 
-  const closeModal = () => modal.classList.remove('active');
-  closeBtn?.addEventListener('click', closeModal);
-  closePanelBtn?.addEventListener('click', closeModal);
+  // Actualitzar l'enllaç i text del botó de descàrrega del formulari
+  const btnForm = document.getElementById('btn-download-form');
+  if (btnForm) {
+    btnForm.href = formUrls[currentLang];
+    btnForm.textContent = formButtonTexts[currentLang];
+    btnForm.setAttribute('download', `formulari_context_${currentLang}.txt`);
+  }
 
-  // Clave de acceso por defecto: admin123
-  submitAuthBtn?.addEventListener('click', () => {
-    const passInput = document.getElementById('admin-password');
-    if (passInput && passInput.value === 'admin123') {
-      authView.style.display = 'none';
-      panelView.style.display = 'block';
-      passInput.value = '';
-    } else {
-      alert('Contraseña incorrecta');
-    }
-  });
-
-  savePromptBtn?.addEventListener('click', () => {
-    const title = document.getElementById('new-prompt-title').value;
-    const category = document.getElementById('new-prompt-category').value;
-    const body = document.getElementById('new-prompt-body').value;
-
-    if (title && body) {
-      const newPrompt = { id: Date.now(), title, category, body };
-      promptsData.unshift(newPrompt);
-      localStorage.setItem('custom_prompts', JSON.stringify(promptsData));
-      renderPrompts(promptsData);
-
-      document.getElementById('new-prompt-title').value = '';
-      document.getElementById('new-prompt-body').value = '';
-      closeModal();
-    } else {
-      alert('Por favor, completa el título y el cuerpo del prompt.');
-    }
-  });
+  // Desar la preferència de l'usuari
+  localStorage.setItem('preferred_lang', currentLang);
 }
 
-// --- INICIALIZACIÓN ---
-document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('custom_prompts');
+/**
+ * Funció d'escapament per a evitar injeccions HTML/XSS
+ */
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// ====================================================================
+// INICIALITZACIÓ DE L'APLICACIÓ
+// ====================================================================
+
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Usar custom_prompts_v2 per a evitar conflictes amb la versió anterior
+  const saved = localStorage.getItem('custom_prompts_v2');
   promptsData = saved ? JSON.parse(saved) : defaultPrompts;
 
+  // 2. Detectar idioma de la URL o del localStorage
   const urlParams = new URLSearchParams(window.location.search);
   const langParam = urlParams.get('lang');
+  const savedLang = localStorage.getItem('preferred_lang');
+  const initialLang = langParam || savedLang || 'ca';
 
-  setLanguage(langParam && translations[langParam] ? langParam : 'es');
+  setLanguage(initialLang);
 
+  // 3. Escuchadors d'esdeveniments per als botons d'idioma
   document.getElementById('btn-es')?.addEventListener('click', () => setLanguage('es'));
   document.getElementById('btn-ca')?.addEventListener('click', () => setLanguage('ca'));
-  document.getElementById('btn-pt')?.addEventListener('click', () => setLanguage('pt-BR'));
+  document.getElementById('btn-pt')?.addEventListener('click', () => setLanguage('pt'));
   document.getElementById('btn-en')?.addEventListener('click', () => setLanguage('en'));
 
+  // 4. Cercador en temps real
   document.getElementById('search-input')?.addEventListener('input', () => renderPrompts(promptsData));
 
-  setupAdminPanel();
-  renderPrompts(promptsData);
+  // 5. Carregar els continguts reals des dels fitxers .txt
+  await loadPromptsContent();
 });
