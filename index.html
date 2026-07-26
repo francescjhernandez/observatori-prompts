@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="header_title">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO</title>
+    
+    <style>
+        /* --- ESTILOS GENERALES Y REPETICIÓN DE VARIABLES --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- CABECERA Y SELECTOR DE IDIOMAS --- */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 1.25rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+
+        .logo-title h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #f8fafc;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            max-width: 900px;
+            width: 100%;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        .intro-section {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            border-left: 5px solid #2563eb;
+        }
+
+        .intro-section h2 {
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+            font-size: 1.4rem;
+        }
+
+        .intro-section p {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        /* --- FILTRO DE DESPLEGABLE --- */
+        .filter-container {
+            margin-bottom: 2rem;
+        }
+
+        #subject-filter {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-size: 0.98rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #0f172a;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #subject-filter:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* --- CARDS DE PROMPTS Y CARGA --- */
+        #prompts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: #64748b;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        /* --- PIE DE PÁGINA --- */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <div class="header-container">
+            <div class="logo-title">
+                <span class="logo-icon">🎓</span>
+                <h1 data-i18n="header_title">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO</h1>
+            </div>
+            
+            <!-- Selector de Idiomas -->
+            <div class="lang-selector">
+                <button onclick="setLanguage('es')" id="btn-es" class="lang-btn active">Castellano</button>
+                <button onclick="setLanguage('ca')" id="btn-ca" class="lang-btn">Català / Valencià</button>
+                <button onclick="setLanguage('pt-BR')" id="btn-pt" class="lang-btn">Português (BR)</button>
+                <button onclick="setLanguage('en')" id="btn-en" class="lang-btn">English</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="intro-section">
+            <h2 data-i18n="repo_title">Repositorio Abierto de Prompts para Educación</h2>
+            <p data-i18n="repo_description">
+                Puedes descargar prompts para elaborar con la IA tus programaciones didácticas. Busca los prompts que necesites, sigue sus indicaciones para introducir los datos de tu alumnado, cárgalo en una IA (ChatGPT, Gemini, Kimi, NotebookLM, etc.) y automáticamente se elaborará tu programación didáctica adaptada. Si dispones de prompts contrastados o has mejorado los del portal, apórtalos para que otros docentes puedan utilizarlos.
+            </p>
+        </section>
+
+        <!-- Filtro por materias (Claves internas neutras) -->
+        <div class="filter-container">
+            <select id="subject-filter" onchange="filterPrompts()">
+                <option value="all" data-i18n="cat_all">Todas las materias</option>
+                <option value="medio_natural" data-i18n="cat_medio_natural">Conocimiento del Medio / Ciencias Naturales y Sociales</option>
+                <option value="bio_geo" data-i18n="cat_bio_geo">Biología, Geología y Ciencias Ambientales</option>
+                <option value="fis_qui" data-i18n="cat_fis_qui">Física y Química</option>
+                <option value="geo_hist" data-i18n="cat_geo_hist">Geografía e Historia / Historia del Arte</option>
+                <option value="lengua_cast" data-i18n="cat_lengua_cast">Lengua Castellana y Literatura</option>
+                <option value="lengua_coof" data-i18n="cat_lengua_coof">Lengua Cooficial (Valenciano / Catalán / Gallego / Euskera)</option>
+                <option value="lengua_ext" data-i18n="cat_lengua_ext">Lengua Extranjera (Inglés, Francés, Alemán...)</option>
+                <option value="matematicas" data-i18n="cat_matematicas">Matemáticas</option>
+                <option value="filosofia" data-i18n="cat_filosofia">Filosofía y Valores Cívicos</option>
+                <option value="ed_fisica" data-i18n="cat_ed_fisica">Educación Física</option>
+                <option value="ed_plastica" data-i18n="cat_ed_plastica">Educación Artística, Plástica y Visual</option>
+                <option value="musica" data-i18n="cat_musica">Música y Artes Escénicas</option>
+                <option value="tecnologia" data-i18n="cat_tecnologia">Tecnología, Digitalización e Ingeniería</option>
+                <option value="economia" data-i18n="cat_economia">Economía, Emprendimiento y Empresa</option>
+                <option value="clasicas" data-i18n="cat_clasicas">Cultura Clásica, Latín y Griego</option>
+                <option value="fp" data-i18n="cat_fp">Formación Profesional (FP)</option>
+                <option value="inclusion" data-i18n="cat_inclusion">Inclusión, Atención a la Diversidad y Orientación</option>
+                <option value="general" data-i18n="cat_general">General / Transversal</option>
+            </select>
+        </div>
+
+        <!-- Contenedor del Catálogo de Prompts -->
+        <div id="prompts-container">
+            <div class="loading-text" data-i18n="loading">Cargando catálogo de prompts...</div>
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p data-i18n="footer_text">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Plataforma libre para docentes.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
