@@ -1,7 +1,8 @@
 export const es = {
   form: {
     select_subject_placeholder: "Selecciona una materia...",
-    label_subject: "Materia"
+    label_subject: "Materia",
+    btn_upload_prompts: "Subir Prompts"
   },
   subjects: {
     history: "Historia",
