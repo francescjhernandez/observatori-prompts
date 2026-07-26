@@ -1,0 +1,46 @@
+====================================================================
+  FORMULARI DE DADES DE CONTEXT DOCENT
+  Observatori d'Igualtat Educativa Inclusiva - Universitat de València
+====================================================================
+
+INSTRUCCIONS:
+Ompli les dades que conega sobre el seu grup o unitat. Copie aquest
+text juntament amb el prompt corresponent i pegue-ho tot en el seu
+assistent d'IA habitual (ChatGPT, Claude, Gemini, etc.).
+
+--------------------------------------------------------------------
+1. DADES GENERALS I DE L'ASSIGNATURA
+--------------------------------------------------------------------
+- Àrea / Matèria / Asignatura: 
+- Etapa i curs: [p. ex., 4t de Primària, 1r d'ESO, Formació Docent]
+- Títol i objectiu de la unitat / guia: 
+- Nombre de sessions o mòduls: 
+
+--------------------------------------------------------------------
+2. CARACTERÍSTIQUES DEL GRUP I ATENCIÓ A LA DIVERSITAT
+--------------------------------------------------------------------
+- Nombre total d'alumnat al grup: 
+- Nombre d'alumnat amb suport o en aula específica: 
+- Necessitats funcionals rellevants del grup (sensorials, motrius,
+  comunicatives, de regulació emocional o atencional — sense diagnòstic clínic):
+- Aspectes o continguts que el docent ja sap que solen resultar
+  especialment complexos o difícils per a aquest grup: 
+
+--------------------------------------------------------------------
+3. NIVELL DE PARTIDA I OBJECTIUS ESPECÍFICS
+--------------------------------------------------------------------
+- Nivell de competència digital / coneixements de partida estimat: [A1 / A2 / B1 / B2 / C1]
+- Competències objectiu, continguts o tècniques concretes a treballar: 
+
+--------------------------------------------------------------------
+4. RECURSOS, DOTACIÓ I RESTRICCIONS
+--------------------------------------------------------------------
+- Dotació tecnològica i materials disponibles: [dispositius individuals,
+  aula d'informàtica, programari, materials plàstics, eines musicals, etc.]
+- Suports humans disponibles a l'aula: [especialista o educador/a de suport,
+  ràtio, etc.]
+- Restriccions d'espai, de temps o de la institució: [aula, pati, sala de
+  música, gimnàs, horaris, etc.]
+- Bretxa digital o necessitats d'accés funcional detectades: 
+
+====================================================================
