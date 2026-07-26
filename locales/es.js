@@ -4,6 +4,13 @@ export const es = {
     label_subject: "Materia",
     btn_upload_prompts: "Subir Prompts"
   },
+  instructions: {
+    title: "PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:",
+    step1: "Descargar y rellenar el formulario.",
+    step2: "Descargar o copiar el prompt.",
+    step3: "Insertar el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    upload_note: "Si quieres enviar un prompt a la plataforma, usa el botón «Subir Prompts» y rellena el formulario."
+  },
   subjects: {
     history: "Historia",
     geography: "Geografía",
