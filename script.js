@@ -20,9 +20,9 @@ const translations = {
         header_title: "Observatorio de Igualdad Educativa Inclusivo",
         btn_admin: "Administración",
         instructions_title: "PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:",
-        step_1: "1) Descargar y rellenar el formulario.",
-        step_2: "2) Descargar o copiar el prompt.",
-        step_3: "3) Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+        step_1: "Descargar y rellenar el formulario.",
+        step_2: "Descargar o copiar el prompt.",
+        step_3: "Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
         step_upload: "Si quieres subir un prompt a la plataforma, usa el botón «Administración» y rellena el formulario.",
         btn_download: "📥 Descargar formulario de contexto",
         search_placeholder: "Buscar prompts por palabra clave, materia, nivel...",
@@ -50,9 +50,9 @@ const translations = {
         header_title: "Observatori d'Igualtat Educativa Inclusiu",
         btn_admin: "Administració",
         instructions_title: "PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, HAS DE:",
-        step_1: "1) Descarregar i omplir el formulari.",
-        step_2: "2) Descarregar o copiar el prompt.",
-        step_3: "3) Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+        step_1: "Descarregar i omplir el formulari.",
+        step_2: "Descarregar o copiar el prompt.",
+        step_3: "Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
         step_upload: "Si vols pujar un prompt a la plataforma, utilitza el botó «Administració» i ompli el formulari.",
         btn_download: "📥 Descarregar formulari de context",
         search_placeholder: "Cercar prompts per paraula clau, matèria, nivell...",
@@ -80,9 +80,9 @@ const translations = {
         header_title: "Observatório de Igualdade Educativa Inclusivo",
         btn_admin: "Administração",
         instructions_title: "PARA USAR OS PROMPTS DESTE REPOSITÓRIO, VOCÊ DEVE:",
-        step_1: "1) Baixar e preencher o formulário.",
-        step_2: "2) Baixar ou copiar o prompt.",
-        step_3: "3) Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+        step_1: "Baixar e preencher o formulário.",
+        step_2: "Baixar ou copiar o prompt.",
+        step_3: "Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
         step_upload: "Se você quiser enviar um prompt para a plataforma, use o botão «Administração» e preencha o formulário.",
         btn_download: "📥 Baixar formulário de contexto",
         search_placeholder: "Buscar prompts por palavra-chave, matéria, nível...",
@@ -110,9 +110,9 @@ const translations = {
         header_title: "Inclusive Educational Equality Observatory",
         btn_admin: "Administration",
         instructions_title: "TO USE THE PROMPTS IN THIS REPOSITORY, YOU MUST:",
-        step_1: "1) Download and fill out the context form.",
-        step_2: "2) Download or copy the prompt.",
-        step_3: "3) Enter the prompt and the form into an AI (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+        step_1: "Download and fill out the context form.",
+        step_2: "Download or copy the prompt.",
+        step_3: "Enter the prompt and the form into an AI (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
         step_upload: "If you want to upload a prompt to the platform, click the «Administration» button and complete the form.",
         btn_download: "📥 Download context form",
         search_placeholder: "Search prompts by keyword, subject, level...",
@@ -139,6 +139,20 @@ const translations = {
 
 let currentLang = 'ca';
 let promptsData = [];
+
+// ====================================================================
+// FUNCIÓ PER TRADUIR CATEGORIES MULTILLENGUA
+// ====================================================================
+
+function getLocalizedCategory(categoryString) {
+    if (!categoryString) return '';
+    const parts = categoryString.split('|').map(s => s.trim());
+    if (parts.length < 4) return categoryString; // Si no té format multillengua, el retorna tal qual
+
+    const langIndex = { 'ca': 0, 'es': 1, 'pt': 2, 'en': 3 };
+    const index = langIndex[currentLang] !== undefined ? langIndex[currentLang] : 0;
+    return parts[index] || parts[0];
+}
 
 // ====================================================================
 // CARREGAR DES DE SUPABASE
@@ -197,10 +211,11 @@ function renderPrompts(promptsToRender) {
 
     container.innerHTML = filtered.map(prompt => {
         const promptAuthor = prompt.author || prompt.autor;
+        const localizedCat = getLocalizedCategory(prompt.category);
         return `
             <article class="prompt-card" id="prompt-${prompt.id}">
                 <div class="prompt-header">
-                    <span class="prompt-badge">${escapeHtml(prompt.category)}</span>
+                    <span class="prompt-badge">${escapeHtml(localizedCat)}</span>
                     <h3>${escapeHtml(prompt.title)}</h3>
                     ${promptAuthor ? `<div class="prompt-author">${authorLabel} ${escapeHtml(promptAuthor)}</div>` : ''}
                 </div>
@@ -256,7 +271,6 @@ function setLanguage(lang) {
         }
     });
 
-    // Actualitzar els optgroup label del select d'administració segons l'idioma
     document.querySelectorAll('optgroup[data-group]').forEach(group => {
         const groupKey = group.getAttribute('data-group');
         if (translations[currentLang] && translations[currentLang][groupKey]) {
@@ -324,7 +338,7 @@ function setupAdminModal() {
             }
 
             if (data && data.length > 0) {
-                promptsData.unshift(data[0]);
+                promptsData.unshift(data.shift());
                 renderPrompts(promptsData);
             }
 
