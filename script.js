@@ -3,7 +3,11 @@ const translations = {
   es: {
     page_title: "Observatorio de Igualdad Educativa Inclusivo",
     main_title: "Observatorio de Igualdad Educativa Inclusivo",
-    subtitle: "Repositorio abierto de prompts para la elaboración de programaciones didácticas adaptadas e inclusivas mediante Inteligencia Artificial.",
+    instructions_title: "PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:",
+    step_1: "1) Descargar y rellenar el formulario.",
+    step_2: "2) Descargar o copiar el prompt.",
+    step_3: "3) Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    step_upload: "Si quieres subir un prompt a la plataforma, usa el botón «Administración» y rellena el formulario.",
     search_placeholder: "Buscar prompts por palabra clave, materia, nivel...",
     btn_admin: "Administración",
     admin_login_title: "Acceso de Administración",
@@ -18,7 +22,11 @@ const translations = {
   ca: {
     page_title: "Observatori d'Igualtat Educativa Inclusiu",
     main_title: "Observatori d'Igualtat Educativa Inclusiu",
-    subtitle: "Repositori obert de prompts per a l'elaboració de programacions didàctiques adaptades i inclusives mitjançant Intel·ligència Artificial.",
+    instructions_title: "PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, CAL:",
+    step_1: "1) Descarregar i emplenar el formulari.",
+    step_2: "2) Descarregar o copiar el prompt.",
+    step_3: "3) Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    step_upload: "Si vols pujar un prompt a la plataforma, utilitza el botó «Administració» i emplena el formulari.",
     search_placeholder: "Cercar prompts per paraula clau, matèria, nivell...",
     btn_admin: "Administració",
     admin_login_title: "Accés d'Administració",
@@ -33,7 +41,11 @@ const translations = {
   "pt-BR": {
     page_title: "Observatório de Igualdade Educativa Inclusivo",
     main_title: "Observatório de Igualdade Educativa Inclusivo",
-    subtitle: "Repositório aberto de prompts para a elaboração de planos didáticos adaptados e inclusivos por meio de Inteligência Artificial.",
+    instructions_title: "PARA USAR OS PROMPTS DESTE REPOSITÓRIO, VOCÊ DEVE:",
+    step_1: "1) Baixar e preencher o formulário.",
+    step_2: "2) Baixar ou copiar o prompt.",
+    step_3: "3) Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    step_upload: "Se você quiser enviar um prompt para a plataforma, use o botão «Administração» e preencha o formulário.",
     search_placeholder: "Pesquisar prompts por palavra-chave, matéria, nível...",
     btn_admin: "Administração",
     admin_login_title: "Acesso de Administração",
@@ -48,7 +60,11 @@ const translations = {
   en: {
     page_title: "Inclusive Educational Equality Observatory",
     main_title: "Inclusive Educational Equality Observatory",
-    subtitle: "Open repository of prompts for creating adapted and inclusive teaching units using Artificial Intelligence.",
+    instructions_title: "TO USE THE PROMPTS IN THIS REPOSITORY, YOU MUST:",
+    step_1: "1) Download and fill out the form.",
+    step_2: "2) Download or copy the prompt.",
+    step_3: "3) Input the prompt and the form into an AI tool (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    step_upload: "If you want to upload a prompt to the platform, use the 'Administration' button and fill out the form.",
     search_placeholder: "Search prompts by keyword, subject, level...",
     btn_admin: "Administration",
     admin_login_title: "Admin Access",
@@ -72,7 +88,7 @@ const defaultPrompts = [
   },
   {
     id: 2,
-    title: "Rubrica de Evaluación Inclusiva",
+    title: "Rúbrica de Evaluación Inclusiva",
     category: "Evaluación",
     body: "Genera una rúbrica cualitativa en formato tabla para evaluar la competencia colaborativa en un proyecto de Ciencias Sociales de Educación Primaria, incorporando autoevaluación y coevaluación accesibles."
   }
@@ -213,26 +229,21 @@ function setupAdminPanel() {
 
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
-  // Cargar datos locales o defecto
   const saved = localStorage.getItem('custom_prompts');
   promptsData = saved ? JSON.parse(saved) : defaultPrompts;
 
-  // Detectar idioma enviado desde uv.es por la URL (?lang=ca)
   const urlParams = new URLSearchParams(window.location.search);
   const langParam = urlParams.get('lang');
 
   setLanguage(langParam && translations[langParam] ? langParam : 'es');
 
-  // Eventos de selección manual de idioma
   document.getElementById('btn-es')?.addEventListener('click', () => setLanguage('es'));
   document.getElementById('btn-ca')?.addEventListener('click', () => setLanguage('ca'));
   document.getElementById('btn-pt')?.addEventListener('click', () => setLanguage('pt-BR'));
   document.getElementById('btn-en')?.addEventListener('click', () => setLanguage('en'));
 
-  // Buscador
   document.getElementById('search-input')?.addEventListener('input', () => renderPrompts(promptsData));
 
-  // Inicializar funciones
   setupAdminPanel();
   renderPrompts(promptsData);
 });
