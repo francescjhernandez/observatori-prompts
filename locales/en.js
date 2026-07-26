@@ -1,8 +1,8 @@
-
 export const en = {
   form: {
     select_subject_placeholder: "Select a subject...",
-    label_subject: "Subject"
+    label_subject: "Subject",
+    btn_upload_prompts: "Upload Prompts"
   },
   subjects: {
     history: "History",
