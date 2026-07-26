@@ -1,64 +1,461 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Observatori d'Igualtat Educativa Inclusiva - Prompts</title>
-    <link rel="stylesheet" href="style.css">
+    <title data-i18n="page_title">Observatorio de Igualdad Educativa Inclusivo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- CABECERA --- */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 1.25rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        /* Selector de idiomas y botón de administración */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 0.25rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .lang-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-admin {
+            background-color: #334155;
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-admin:hover {
+            background-color: #475569;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        main {
+            max-width: 1100px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* Caja de instrucciones de uso */
+        .instruction-banner {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-left: 6px solid #2563eb;
+        }
+
+        .instruction-banner h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .instructions-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .instructions-list li {
+            color: #334155;
+            font-size: 0.98rem;
+            line-height: 1.5;
+        }
+
+        .instruction-footer {
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.925rem;
+            font-weight: 500;
+        }
+
+        /* Barra de búsqueda y Toolbar */
+        .toolbar-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .download-box {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #1d4ed8;
+        }
+
+        .search-box {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Prompts Grid */
+        .prompts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .prompt-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .prompt-header {
+            margin-bottom: 1rem;
+        }
+
+        .prompt-badge {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: #2563eb;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .prompt-header h3 {
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+
+        .prompt-body {
+            flex: 1;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #f1f5f9;
+        }
+
+        .prompt-body pre {
+            white-space: pre-wrap;
+            font-size: 0.85rem;
+            color: #334155;
+        }
+
+        .btn-copy {
+            width: 100%;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* --- MODAL DE ADMINISTRACIÓN --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #334155;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* --- PIE DE PÁGINA --- */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- CAPÇALERA I SELECTOR D'IDIOMA -->
-    <header class="main-header">
+    <!-- CABECERA -->
+    <header>
         <div class="header-container">
-            <h1>Observatori d'Igualtat Educativa Inclusiva</h1>
-            <p class="subtitle">Banc de prompts per a la generació de guies docents i inclusió educativa</p>
-            
-            <!-- Selector d'idiomes -->
-            <div class="language-selector">
-                <button id="btn-ca" class="lang-btn">CA</button>
-                <button id="btn-es" class="lang-btn">ES</button>
-                <button id="btn-pt" class="lang-btn">PT</button>
-                <button id="btn-en" class="lang-btn">EN</button>
+            <div class="logo-title">
+                <span style="font-size: 1.8rem;">🎓</span>
+                <h1 data-i18n="header_title">Observatorio de Igualdad Educativa Inclusivo</h1>
+            </div>
+
+            <div class="header-actions">
+                <!-- Selector de idioma -->
+                <div class="lang-selector">
+                    <button id="btn-es" class="lang-btn active">Castellano</button>
+                    <button id="btn-ca" class="lang-btn">Català / Valencià</button>
+                    <button id="btn-pt" class="lang-btn">Português (BR)</button>
+                    <button id="btn-en" class="lang-btn">English</button>
+                </div>
+
+                <!-- Botón de administración -->
+                <button id="admin-login-btn" class="btn-admin">
+                    🔒 <span data-i18n="btn_admin">Administración</span>
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="main-content">
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <!-- Caja de instrucciones de uso -->
+        <div class="instruction-banner">
+            <h2 data-i18n="instructions_title">PARA USAR LOS PROMPTS DE ESTE REPOSITORIO, DEBES:</h2>
+            <ol class="instructions-list">
+                <li data-i18n="step_1">1) Descargar y rellenar el formulario.</li>
+                <li data-i18n="step_2">2) Descargar o copiar el prompt.</li>
+                <li data-i18n="step_3">3) Introducir el prompt y el formulario en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
+            </ol>
+            <p class="instruction-footer" data-i18n="step_upload">
+                Si quieres subir un prompt a la plataforma, usa el botón «Administración» y rellena el formulario.
+            </p>
+        </div>
 
-        <!-- BARRA D'EINES: DESCÀRREGA DE FORMULARI I CERCA -->
+        <!-- Barra de herramientas: Descargar formulario y Buscador -->
         <section class="toolbar-section">
-            <div class="toolbar-container">
-                
-                <!-- Enllaç dinàmic per a descarregar el formulari de context -->
-                <div class="download-box">
-                    <a id="btn-download-form" href="#" target="_blank" class="btn-download">
-                        📥 Descarregar formulari de context
-                    </a>
-                </div>
-
-                <!-- Cerca de prompts -->
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Buscar prompt per títol, categoria o contingut...">
-                </div>
-
+            <div class="download-box">
+                <a id="btn-download-form" href="#" target="_blank" class="btn-download" data-i18n="btn_download">
+                    📥 Descargar formulario de contexto
+                </a>
+            </div>
+            <div class="search-box">
+                <input type="text" id="search-input" data-i18n-placeholder="search_placeholder" placeholder="Buscar prompts por palabra clave, materia, nivel...">
             </div>
         </section>
 
-        <!-- CONTENIDOR DE TARGETES DE PROMPTS -->
+        <!-- Contenedor dinámico de prompts -->
         <section class="prompts-section">
             <div id="prompts-container" class="prompts-grid">
-                <p class="loading-text">Carregant prompts...</p>
+                <!-- Los prompts cargados mediante Supabase/script.js aparecerán aquí -->
             </div>
         </section>
-
     </main>
 
-    <footer class="main-footer">
-        <p>&copy; Universitat de València - Observatori d'Igualtat Educativa Inclusiva</p>
+    <!-- MODAL DE ADMINISTRACIÓN -->
+    <div id="admin-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="admin-modal-title" data-i18n="admin_panel_title">Panel de Gestión de Prompts</h3>
+                <button id="btn-close-modal" class="btn-close">&times;</button>
+            </div>
+            <form id="add-prompt-form">
+                <div class="form-group">
+                    <label data-i18n="prompt_title_label">Título del Prompt</label>
+                    <input type="text" id="new-prompt-title" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="prompt_cat_label">Categoría</label>
+                    <input type="text" id="new-prompt-category" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="prompt_body_label">Contenido del Prompt</label>
+                    <textarea id="new-prompt-body" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit" data-i18n="btn_save_prompt">Guardar Prompt</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p data-i18n="footer_text">PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València</p>
     </footer>
 
-    <!-- SCRIPT PRINCIPAL -->
+    <!-- SDK Supabase y Script Principal -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
 </html>
