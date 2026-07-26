@@ -1,17 +1,18 @@
-// URL base del repositorio y configuración de traducciones
+// --- DICCIONARIO DE TRADUCCIONES ---
 const translations = {
   es: {
     page_title: "Observatorio de Igualdad Educativa Inclusivo",
     main_title: "Observatorio de Igualdad Educativa Inclusivo",
     subtitle: "Repositorio abierto de prompts para la elaboración de programaciones didácticas adaptadas e inclusivas mediante Inteligencia Artificial.",
     search_placeholder: "Buscar prompts por palabra clave, materia, nivel...",
-    filter_all: "Todos",
-    filter_general: "Generales",
-    filter_adaptations: "Adaptaciones",
-    filter_evaluation: "Evaluación",
+    btn_admin: "Administración",
+    admin_login_title: "Acceso de Administración",
+    admin_panel_title: "Panel de Gestión de Prompts",
+    modal_close: "Cancelar",
+    btn_enter: "Entrar",
+    btn_add_prompt: "Guardar Prompt",
     btn_copy: "Copiar Prompt",
     btn_copied: "¡Copiado!",
-    modal_close: "Cerrar",
     footer_text: "PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València"
   },
   ca: {
@@ -19,13 +20,14 @@ const translations = {
     main_title: "Observatori d'Igualtat Educativa Inclusiu",
     subtitle: "Repositori obert de prompts per a l'elaboració de programacions didàctiques adaptades i inclusives mitjançant Intel·ligència Artificial.",
     search_placeholder: "Cercar prompts per paraula clau, matèria, nivell...",
-    filter_all: "Tots",
-    filter_general: "Generals",
-    filter_adaptations: "Adaptacions",
-    filter_evaluation: "Avaluació",
+    btn_admin: "Administració",
+    admin_login_title: "Accés d'Administració",
+    admin_panel_title: "Panell de Gestió de Prompts",
+    modal_close: "Cancel·lar",
+    btn_enter: "Entrar",
+    btn_add_prompt: "Guardar Prompt",
     btn_copy: "Copiar Prompt",
     btn_copied: "Copiat!",
-    modal_close: "Tancar",
     footer_text: "PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València"
   },
   "pt-BR": {
@@ -33,13 +35,14 @@ const translations = {
     main_title: "Observatório de Igualdade Educativa Inclusivo",
     subtitle: "Repositório aberto de prompts para a elaboração de planos didáticos adaptados e inclusivos por meio de Inteligência Artificial.",
     search_placeholder: "Pesquisar prompts por palavra-chave, matéria, nível...",
-    filter_all: "Todos",
-    filter_general: "Gerais",
-    filter_adaptations: "Adaptações",
-    filter_evaluation: "Avaliação",
+    btn_admin: "Administração",
+    admin_login_title: "Acesso de Administração",
+    admin_panel_title: "Painel de Gestão de Prompts",
+    modal_close: "Cancelar",
+    btn_enter: "Entrar",
+    btn_add_prompt: "Salvar Prompt",
     btn_copy: "Copiar Prompt",
     btn_copied: "Copiado!",
-    modal_close: "Fechar",
     footer_text: "PROJETO OBSERVATÓRIO DE IGUALDADE EDUCATIVA INCLUSIVO © 2026 — Universitat de València"
   },
   en: {
@@ -47,34 +50,47 @@ const translations = {
     main_title: "Inclusive Educational Equality Observatory",
     subtitle: "Open repository of prompts for creating adapted and inclusive teaching units using Artificial Intelligence.",
     search_placeholder: "Search prompts by keyword, subject, level...",
-    filter_all: "All",
-    filter_general: "General",
-    filter_adaptations: "Adaptations",
-    filter_evaluation: "Evaluation",
+    btn_admin: "Administration",
+    admin_login_title: "Admin Access",
+    admin_panel_title: "Prompt Management Panel",
+    modal_close: "Cancel",
+    btn_enter: "Enter",
+    btn_add_prompt: "Save Prompt",
     btn_copy: "Copy Prompt",
     btn_copied: "Copied!",
-    modal_close: "Close",
     footer_text: "INCLUSIVE EDUCATIONAL EQUALITY OBSERVATORY PROJECT © 2026 — Universitat de València"
   }
 };
 
-let currentLang = 'es';
+// --- BASE DE DATOS INICIAL DE PROMPTS ---
+const defaultPrompts = [
+  {
+    id: 1,
+    title: "Adaptación Curricular Individualizada (NEAE)",
+    category: "Adaptaciones",
+    body: "Actúa como un orientador educativo experto en DUA (Diseño Universal para el Aprendizaje). Diseña una adaptación para una unidad didáctica de Secundaria dirigida a un estudiante con TDAH, especificando metodologías activas, tiempo estimado y criterios de evaluación accesibles."
+  },
+  {
+    id: 2,
+    title: "Rubrica de Evaluación Inclusiva",
+    category: "Evaluación",
+    body: "Genera una rúbrica cualitativa en formato tabla para evaluar la competencia colaborativa en un proyecto de Ciencias Sociales de Educación Primaria, incorporando autoevaluación y coevaluación accesibles."
+  }
+];
 
-// Función para cambiar idioma y actualizar interfaz
+let currentLang = 'es';
+let promptsData = [];
+
+// --- GESTIÓN DE IDIOMAS ---
 function setLanguage(lang) {
   if (!translations[lang]) lang = 'es';
   currentLang = lang;
 
-  // Actualizar botones de idioma activos
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
   const activeBtnId = `btn-${lang.toLowerCase().replace('-br', '')}`;
   const activeBtn = document.getElementById(activeBtnId);
   if (activeBtn) activeBtn.classList.add('active');
 
-  // Traducir elementos con atributo data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
@@ -82,7 +98,6 @@ function setLanguage(lang) {
     }
   });
 
-  // Traducir placeholders
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (translations[lang] && translations[lang][key]) {
@@ -90,51 +105,134 @@ function setLanguage(lang) {
     }
   });
 
-  // Actualizar atributo lang en html
   document.documentElement.lang = lang;
+  renderPrompts(promptsData);
 }
 
-// Copiar texto al portapapeles
-function copyToClipboard(text, buttonElement) {
+// --- RENDERIZADO DE PROMPTS Y BÚSQUEDA ---
+function renderPrompts(data) {
+  const container = document.getElementById('prompts-container');
+  if (!container) return;
+
+  const searchTerm = (document.getElementById('search-input')?.value || '').toLowerCase();
+  
+  const filtered = data.filter(p => 
+    p.title.toLowerCase().includes(searchTerm) || 
+    p.category.toLowerCase().includes(searchTerm) || 
+    p.body.toLowerCase().includes(searchTerm)
+  );
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 2rem;">No se encontraron prompts que coincidan con la búsqueda.</p>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(p => `
+    <div class="prompt-card">
+      <div>
+        <span class="prompt-badge">${p.category}</span>
+        <h3 class="prompt-title">${p.title}</h3>
+        <p class="prompt-body">${p.body}</p>
+      </div>
+      <button class="btn-copy" onclick="copyToClipboard('${p.body.replace(/'/g, "\\'")}', this)">
+        ${translations[currentLang].btn_copy || 'Copiar Prompt'}
+      </button>
+    </div>
+  `).join('');
+}
+
+// --- COPIAR AL PORTAPAPELES ---
+function copyToClipboard(text, btnElement) {
   navigator.clipboard.writeText(text).then(() => {
-    const originalText = buttonElement.textContent;
-    buttonElement.textContent = translations[currentLang].btn_copied || "¡Copiado!";
-    buttonElement.style.backgroundColor = "#16a34a";
+    const originalText = btnElement.textContent;
+    btnElement.textContent = translations[currentLang].btn_copied || "¡Copiado!";
+    btnElement.style.backgroundColor = "#16a34a";
     
     setTimeout(() => {
-      buttonElement.textContent = originalText;
-      buttonElement.style.backgroundColor = "";
+      btnElement.textContent = originalText;
+      btnElement.style.backgroundColor = "";
     }, 2000);
-  }).catch(err => {
-    console.error('Error al copiar: ', err);
   });
 }
 
-// Inicialización al cargar el documento
+// --- PANEL DE ADMINISTRACIÓN ---
+function setupAdminPanel() {
+  const adminBtn = document.getElementById('admin-login-btn');
+  const modal = document.getElementById('admin-modal');
+  const authView = document.getElementById('admin-auth-view');
+  const panelView = document.getElementById('admin-panel-view');
+  
+  const closeBtn = document.getElementById('btn-close-modal');
+  const closePanelBtn = document.getElementById('btn-close-panel');
+  const submitAuthBtn = document.getElementById('btn-submit-auth');
+  const savePromptBtn = document.getElementById('btn-save-prompt');
+
+  if (!adminBtn || !modal) return;
+
+  adminBtn.addEventListener('click', () => {
+    modal.classList.add('active');
+    authView.style.display = 'block';
+    panelView.style.display = 'none';
+  });
+
+  const closeModal = () => modal.classList.remove('active');
+  closeBtn?.addEventListener('click', closeModal);
+  closePanelBtn?.addEventListener('click', closeModal);
+
+  // Clave de acceso por defecto: admin123
+  submitAuthBtn?.addEventListener('click', () => {
+    const passInput = document.getElementById('admin-password');
+    if (passInput && passInput.value === 'admin123') {
+      authView.style.display = 'none';
+      panelView.style.display = 'block';
+      passInput.value = '';
+    } else {
+      alert('Contraseña incorrecta');
+    }
+  });
+
+  savePromptBtn?.addEventListener('click', () => {
+    const title = document.getElementById('new-prompt-title').value;
+    const category = document.getElementById('new-prompt-category').value;
+    const body = document.getElementById('new-prompt-body').value;
+
+    if (title && body) {
+      const newPrompt = { id: Date.now(), title, category, body };
+      promptsData.unshift(newPrompt);
+      localStorage.setItem('custom_prompts', JSON.stringify(promptsData));
+      renderPrompts(promptsData);
+
+      document.getElementById('new-prompt-title').value = '';
+      document.getElementById('new-prompt-body').value = '';
+      closeModal();
+    } else {
+      alert('Por favor, completa el título y el cuerpo del prompt.');
+    }
+  });
+}
+
+// --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Detectar idioma enviado como parámetro desde uv.es (?lang=ca, ?lang=es, etc.)
+  // Cargar datos locales o defecto
+  const saved = localStorage.getItem('custom_prompts');
+  promptsData = saved ? JSON.parse(saved) : defaultPrompts;
+
+  // Detectar idioma enviado desde uv.es por la URL (?lang=ca)
   const urlParams = new URLSearchParams(window.location.search);
   const langParam = urlParams.get('lang');
 
-  if (langParam && translations[langParam]) {
-    setLanguage(langParam);
-  } else {
-    setLanguage('es');
-  }
+  setLanguage(langParam && translations[langParam] ? langParam : 'es');
 
-  // 2. Configurar eventos de botones de idioma en la propia web de GitHub
-  const btnEs = document.getElementById('btn-es');
-  const btnCa = document.getElementById('btn-ca');
-  const btnPt = document.getElementById('btn-pt');
-  const btnEn = document.getElementById('btn-en');
+  // Eventos de selección manual de idioma
+  document.getElementById('btn-es')?.addEventListener('click', () => setLanguage('es'));
+  document.getElementById('btn-ca')?.addEventListener('click', () => setLanguage('ca'));
+  document.getElementById('btn-pt')?.addEventListener('click', () => setLanguage('pt-BR'));
+  document.getElementById('btn-en')?.addEventListener('click', () => setLanguage('en'));
 
-  if (btnEs) btnEs.addEventListener('click', () => setLanguage('es'));
-  if (btnCa) btnCa.addEventListener('click', () => setLanguage('ca'));
-  if (btnPt) btnPt.addEventListener('click', () => setLanguage('pt-BR'));
-  if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
-});
+  // Buscador
+  document.getElementById('search-input')?.addEventListener('input', () => renderPrompts(promptsData));
 
-// Inicializar al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  setLanguage('es');
+  // Inicializar funciones
+  setupAdminPanel();
+  renderPrompts(promptsData);
 });
