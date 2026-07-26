@@ -147,7 +147,7 @@ let promptsData = [];
 function getLocalizedCategory(categoryString) {
     if (!categoryString) return '';
     const parts = categoryString.split('|').map(s => s.trim());
-    if (parts.length < 4) return categoryString; // Si no té format multillengua, el retorna tal qual
+    if (parts.length < 4) return categoryString;
 
     const langIndex = { 'ca': 0, 'es': 1, 'pt': 2, 'en': 3 };
     const index = langIndex[currentLang] !== undefined ? langIndex[currentLang] : 0;
@@ -163,7 +163,7 @@ async function fetchPromptsFromSupabase() {
         const { data, error } = await supabaseClient
             .from('prompts')
             .select('*')
-            .order('id', { ascending: false });
+            .order('created_at', { ascending: false });
 
         if (error) {
             console.error("Error en carregar de Supabase:", error);
@@ -171,7 +171,11 @@ async function fetchPromptsFromSupabase() {
         }
 
         if (data && data.length > 0) {
-            promptsData = data;
+            // Mapegem 'content' a 'body' internament per mantenir la compatibilitat del renderitzat
+            promptsData = data.map(item => ({
+                ...item,
+                body: item.content || item.body
+            }));
         }
         renderPrompts(promptsData);
     } catch (err) {
@@ -223,7 +227,7 @@ function renderPrompts(promptsToRender) {
                     <pre><code>${escapeHtml(prompt.body)}</code></pre>
                 </div>
                 <div class="prompt-actions">
-                    <button class="btn-copy" onclick="copyPromptToClipboard(${prompt.id})">
+                    <button class="btn-copy" onclick="copyPromptToClipboard('${prompt.id}')">
                         ${copyBtnText}
                     </button>
                 </div>
@@ -233,7 +237,7 @@ function renderPrompts(promptsToRender) {
 }
 
 async function copyPromptToClipboard(id) {
-    const prompt = promptsData.find(p => p.id === id);
+    const prompt = promptsData.find(p => p.id == id);
     if (!prompt) return;
 
     try {
@@ -324,7 +328,13 @@ function setupAdminModal() {
             const category = document.getElementById('new-prompt-category').value;
             const body = document.getElementById('new-prompt-body').value;
 
-            const newPrompt = { title, author, category, body };
+            // Enviem 'content' en lloc de 'body' per adaptar-nos a la taula de Supabase
+            const newPrompt = { 
+                title: title, 
+                author: author, 
+                category: category, 
+                content: body 
+            };
 
             const { data, error } = await supabaseClient
                 .from('prompts')
@@ -332,13 +342,17 @@ function setupAdminModal() {
                 .select();
 
             if (error) {
-                console.error("Error al guardar a Supabase:", error);
+                console.error("Error detallat de Supabase:", error.message, error.details, error.hint);
                 alert("Error al guardar el prompt a la base de dades.");
                 return;
             }
 
             if (data && data.length > 0) {
-                promptsData.unshift(data.shift());
+                const inserted = data[0];
+                promptsData.unshift({
+                    ...inserted,
+                    body: inserted.content || inserted.body
+                });
                 renderPrompts(promptsData);
             }
 
