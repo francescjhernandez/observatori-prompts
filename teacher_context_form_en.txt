@@ -1,0 +1,46 @@
+====================================================================
+  TEACHER CONTEXT DATA FORM
+  Observatory for Inclusive Educational Equality - Universitat de València
+====================================================================
+
+INSTRUCTIONS:
+Fill in the information you know about your group or unit. Copy this
+text along with the corresponding prompt and paste it into your
+preferred AI assistant (ChatGPT, Claude, Gemini, etc.).
+
+--------------------------------------------------------------------
+1. GENERAL & SUBJECT INFORMATION
+--------------------------------------------------------------------
+- Subject / Field / Area: 
+- Grade and Stage: [e.g., 4th Grade Primary, 7th Grade Secondary, Teacher Training]
+- Title and objective of the unit / guide: 
+- Number of sessions or modules: 
+
+--------------------------------------------------------------------
+2. GROUP CHARACTERISTICS & DIVERSITY ATTENTION
+--------------------------------------------------------------------
+- Total number of students in the group: 
+- Number of students receiving support or in specialized classrooms: 
+- Relevant functional needs of the group (sensory, motor,
+  communicative, emotional or attentional regulation — without clinical diagnosis):
+- Topics or contents that the teacher foresees as particularly
+  challenging or complex for this group: 
+
+--------------------------------------------------------------------
+3. STARTING LEVEL & SPECIFIC OBJECTIVES
+--------------------------------------------------------------------
+- Estimated digital competence / background knowledge: [A1 / A2 / B1 / B2 / C1]
+- Target competencies, core contents, or specific techniques to address: 
+
+--------------------------------------------------------------------
+4. RESOURCES, EQUIPMENT & CONSTRAINTS
+--------------------------------------------------------------------
+- Available technology and materials: [individual devices,
+  computer lab, software, art supplies, musical instruments, etc.]
+- Human support available in the classroom: [special education teacher,
+  co-teacher, support staff, student ratio, etc.]
+- Space, time, or institutional constraints: [classroom, playground, music
+  room, gym, schedules, etc.]
+- Digital divide or functional access needs detected: 
+
+====================================================================
