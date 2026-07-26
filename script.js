@@ -2,13 +2,11 @@
 // CONFIGURACIÓ DE SUPABASE I RUTES
 // ====================================================================
 
-// Credencials de Supabase
 const SUPABASE_URL = "https://amswkfdhwashotagrhfo.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_J-PhmX7Awpb8UwDYXhYwWg_iISrccBy";
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// URLs directes als formularis de context en GitHub
 const formUrls = {
     ca: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulari_context_docent_ca.txt",
     es: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulario_contexto_docente_es.txt",
@@ -16,7 +14,6 @@ const formUrls = {
     en: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/teacher_context_form_en.txt"
 };
 
-// Diccionari de traduccions de la interfície
 const translations = {
     es: {
         page_title: "Observatorio de Igualdad Educativa Inclusivo",
@@ -35,10 +32,18 @@ const translations = {
         no_results: "No se han encontrado prompts que coincidan con la búsqueda.",
         admin_panel_title: "Panel de Gestión de Prompts",
         prompt_title_label: "Título del Prompt",
-        prompt_cat_label: "Categoría",
+        prompt_author_label: "Nombre de la persona que carga el prompt",
+        prompt_cat_label: "Categoría / Materia",
+        select_category_default: "-- Selecciona una opción --",
         prompt_body_label: "Contenido del Prompt",
+        prompt_body_help: "Importante: Copia y pega el prompt estrictamente en texto plano (sin formatos de Word o HTML).",
+        btn_cancel: "Cancelar",
         btn_save_prompt: "Guardar Prompt",
-        footer_text: "PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València"
+        footer_text: "PROYECTO OBSERVATORIO DE IGUALDAD EDUCATIVA INCLUSIVO © 2026 — Universitat de València",
+        by_author: "Autor/a:",
+        group_transversal: "Ámbitos Transversales y Especiales",
+        group_subjects: "Materias y Áreas (LOMLOE y BNCC)",
+        group_others: "Otros"
     },
     ca: {
         page_title: "Observatori d'Igualtat Educativa Inclusiu",
@@ -57,10 +62,18 @@ const translations = {
         no_results: "No s'han trobat prompts que coincidisquen amb la cerca.",
         admin_panel_title: "Panell de Gestió de Prompts",
         prompt_title_label: "Títol del Prompt",
-        prompt_cat_label: "Categoria",
+        prompt_author_label: "Nom de la persona que carregar el prompt",
+        prompt_cat_label: "Categoria / Matèria",
+        select_category_default: "-- Selecciona una opció --",
         prompt_body_label: "Contingut del Prompt",
+        prompt_body_help: "Important: Copia i pega el prompt estrictament en text pla (sense formats de Word o HTML).",
+        btn_cancel: "Cancel·lar",
         btn_save_prompt: "Guardar Prompt",
-        footer_text: "PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València"
+        footer_text: "PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València",
+        by_author: "Autor/a:",
+        group_transversal: "Àmbits Transversals i Especials",
+        group_subjects: "Matèries i Àrees (LOMLOE i BNCC)",
+        group_others: "Altres"
     },
     pt: {
         page_title: "Observatório de Igualdade Educativa Inclusivo",
@@ -79,10 +92,18 @@ const translations = {
         no_results: "Nenhum prompt encontrado com esses termos de busca.",
         admin_panel_title: "Painel de Gestão de Prompts",
         prompt_title_label: "Título do Prompt",
-        prompt_cat_label: "Categoria",
+        prompt_author_label: "Nome da pessoa que carrega o prompt",
+        prompt_cat_label: "Categoria / Matéria",
+        select_category_default: "-- Selecione uma opção --",
         prompt_body_label: "Conteúdo do Prompt",
+        prompt_body_help: "Importante: Copie e cole o prompt estritamente em texto simples (sem formatação do Word ou HTML).",
+        btn_cancel: "Cancelar",
         btn_save_prompt: "Salvar Prompt",
-        footer_text: "PROJETO OBSERVATÓRIO DE IGUALDADE EDUCATIVO INCLUSIVO © 2026 — Universitat de València"
+        footer_text: "PROJETO OBSERVATÓRIO DE IGUALDADE EDUCATIVO INCLUSIVO © 2026 — Universitat de València",
+        by_author: "Autor/a:",
+        group_transversal: "Áreas Transversais e Especiais",
+        group_subjects: "Matérias e Áreas (LOMLOE e BNCC)",
+        group_others: "Outros"
     },
     en: {
         page_title: "Inclusive Educational Equality Observatory",
@@ -101,10 +122,18 @@ const translations = {
         no_results: "No prompts found matching your search.",
         admin_panel_title: "Prompt Management Panel",
         prompt_title_label: "Prompt Title",
-        prompt_cat_label: "Category",
+        prompt_author_label: "Name of the person uploading the prompt",
+        prompt_cat_label: "Category / Subject",
+        select_category_default: "-- Select an option --",
         prompt_body_label: "Prompt Content",
+        prompt_body_help: "Important: Copy and paste the prompt strictly in plain text (without Word or HTML formatting).",
+        btn_cancel: "Cancel",
         btn_save_prompt: "Save Prompt",
-        footer_text: "INCLUSIVE EDUCATIONAL EQUALITY OBSERVATORY PROJECT © 2026 — Universitat de València"
+        footer_text: "INCLUSIVE EDUCATIONAL EQUALITY OBSERVATORY PROJECT © 2026 — Universitat de València",
+        by_author: "Author:",
+        group_transversal: "Transversal & Special Fields",
+        group_subjects: "Subjects & Areas (LOMLOE & BNCC)",
+        group_others: "Others"
     }
 };
 
@@ -150,9 +179,11 @@ function renderPrompts(promptsToRender) {
         const title = p.title || '';
         const category = p.category || '';
         const body = p.body || '';
+        const author = p.author || p.autor || '';
         return title.toLowerCase().includes(searchQuery) ||
                category.toLowerCase().includes(searchQuery) ||
-               body.toLowerCase().includes(searchQuery);
+               body.toLowerCase().includes(searchQuery) ||
+               author.toLowerCase().includes(searchQuery);
     });
 
     if (filtered.length === 0) {
@@ -162,23 +193,28 @@ function renderPrompts(promptsToRender) {
     }
 
     const copyBtnText = translations[currentLang]?.btn_copy || "📋 Copiar Prompt";
+    const authorLabel = translations[currentLang]?.by_author || "Autor/a:";
 
-    container.innerHTML = filtered.map(prompt => `
-        <article class="prompt-card" id="prompt-${prompt.id}">
-            <div class="prompt-header">
-                <span class="prompt-badge">${escapeHtml(prompt.category)}</span>
-                <h3>${escapeHtml(prompt.title)}</h3>
-            </div>
-            <div class="prompt-body">
-                <pre><code>${escapeHtml(prompt.body)}</code></pre>
-            </div>
-            <div class="prompt-actions">
-                <button class="btn-copy" onclick="copyPromptToClipboard(${prompt.id})">
-                    ${copyBtnText}
-                </button>
-            </div>
-        </article>
-    `).join('');
+    container.innerHTML = filtered.map(prompt => {
+        const promptAuthor = prompt.author || prompt.autor;
+        return `
+            <article class="prompt-card" id="prompt-${prompt.id}">
+                <div class="prompt-header">
+                    <span class="prompt-badge">${escapeHtml(prompt.category)}</span>
+                    <h3>${escapeHtml(prompt.title)}</h3>
+                    ${promptAuthor ? `<div class="prompt-author">${authorLabel} ${escapeHtml(promptAuthor)}</div>` : ''}
+                </div>
+                <div class="prompt-body">
+                    <pre><code>${escapeHtml(prompt.body)}</code></pre>
+                </div>
+                <div class="prompt-actions">
+                    <button class="btn-copy" onclick="copyPromptToClipboard(${prompt.id})">
+                        ${copyBtnText}
+                    </button>
+                </div>
+            </article>
+        `;
+    }).join('');
 }
 
 async function copyPromptToClipboard(id) {
@@ -217,6 +253,14 @@ function setLanguage(lang) {
         const key = el.getAttribute('data-i18n-placeholder');
         if (translations[currentLang] && translations[currentLang][key]) {
             el.placeholder = translations[currentLang][key];
+        }
+    });
+
+    // Actualitzar els optgroup label del select d'administració segons l'idioma
+    document.querySelectorAll('optgroup[data-group]').forEach(group => {
+        const groupKey = group.getAttribute('data-group');
+        if (translations[currentLang] && translations[currentLang][groupKey]) {
+            group.label = translations[currentLang][groupKey];
         }
     });
 
@@ -262,10 +306,11 @@ function setupAdminModal() {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('new-prompt-title').value;
+            const author = document.getElementById('new-prompt-author').value;
             const category = document.getElementById('new-prompt-category').value;
             const body = document.getElementById('new-prompt-body').value;
 
-            const newPrompt = { title, category, body };
+            const newPrompt = { title, author, category, body };
 
             const { data, error } = await supabaseClient
                 .from('prompts')
