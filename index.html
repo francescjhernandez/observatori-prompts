@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="instructions.page_title">Observatori d'Igualtat Educativa Inclusiu</title>
+    <title data-i18n="page_title">Observatori d'Igualtat Educativa Inclusiu</title>
     
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -249,7 +249,6 @@
             background: #cbd5e1;
         }
 
-        /* Modal d'administració */
         .modal {
             display: none;
             position: fixed;
@@ -356,7 +355,7 @@
     <header>
         <div class="header-brand">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <h1 data-i18n="instructions.header_title">Observatori d'Igualtat Educativa Inclusiu</h1>
+            <h1 data-i18n="header_title">Observatori d'Igualtat Educativa Inclusiu</h1>
         </div>
         
         <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
@@ -367,7 +366,7 @@
                 <button class="lang-btn" id="btn-en">English</button>
             </div>
             <button class="admin-btn" id="admin-login-btn">
-                🔒 <span data-i18n="form.btn_upload_prompts">Pujar Prompts</span>
+                🔒 <span data-i18n="btn_admin">Pujar Prompts</span>
             </button>
         </div>
     </header>
@@ -376,23 +375,23 @@
     <main>
         <!-- Caixa d'instruccions d'ús -->
         <div class="instruction-banner">
-            <h2 id="instructions-title" data-i18n="instructions.title">PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, HAS DE:</h2>
+            <h2 id="instructions-title" data-i18n="instructions_title">PER A UTILITZAR ELS PROMPTS D'AQUEST REPOSITORI, HAS DE:</h2>
             <ol class="instructions-list">
-                <li id="instructions-step-1" data-i18n="instructions.step1">Descarregar i omplir el formulari.</li>
-                <li id="instructions-step-2" data-i18n="instructions.step2">Descarregar o copiar el prompt.</li>
-                <li id="instructions-step-3" data-i18n="instructions.step3">Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
+                <li id="instructions-step-1" data-i18n="step_1">Descarregar i omplir el formulari.</li>
+                <li id="instructions-step-2" data-i18n="step_2">Descarregar o copiar el prompt.</li>
+                <li id="instructions-step-3" data-i18n="step_3">Introduir el prompt i el formulari en una IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).</li>
             </ol>
-            <p id="instructions-note" class="instruction-footer" data-i18n="instructions.upload_note">
+            <p id="instructions-note" class="instruction-footer" data-i18n="step_upload">
                 Si vols pujar un prompt a la plataforma, utilitza el botó «Pujar Prompts» i ompli el formulari.
             </p>
         </div>
 
         <!-- Barra d'accions -->
         <div class="actions-bar">
-            <a id="btn-download-form" class="btn-download" href="#" target="_blank" data-i18n="form.btn_download">
+            <a id="btn-download-form" class="btn-download" href="#" target="_blank" data-i18n="btn_download">
                 📥 Descarregar formulari de context
             </a>
-            <input type="text" id="search-input" class="search-input" placeholder="Cercar prompts per paraula clau, matèria, nivell..." data-i18n-placeholder="instructions.search_placeholder">
+            <input type="text" id="search-input" class="search-input" placeholder="Cercar prompts per paraula clau, matèria, nivell..." data-i18n-placeholder="search_placeholder">
         </div>
 
         <!-- Graella on es mostraran els prompts -->
@@ -401,37 +400,37 @@
         </section>
     </main>
 
-    <!-- Modal d'Administració/Inserció -->
+    <!-- Modal d'Administració / Inserció -->
     <div id="admin-modal" class="modal">
         <div class="modal-content">
-            <h2 data-i18n="form.modal_title">Panell de Gestió de Prompts</h2>
+            <h2 data-i18n="admin_panel_title">Panell de Gestió de Prompts</h2>
             <form id="add-prompt-form">
                 <div class="form-group">
-                    <label for="new-prompt-title" data-i18n="form.label_prompt_title">Títol del Prompt</label>
+                    <label for="new-prompt-title" data-i18n="prompt_title_label">Títol del Prompt</label>
                     <input type="text" id="new-prompt-title" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="new-prompt-author" data-i18n="form.label_prompt_author">Nom de la persona que carregar el prompt</label>
+                    <label for="new-prompt-author" data-i18n="prompt_author_label">Nom de la persona que carregar el prompt</label>
                     <input type="text" id="new-prompt-author" required placeholder="Nom i cognoms">
                 </div>
 
                 <div class="form-group">
-                    <label for="new-prompt-category" id="subject-label" data-i18n="form.label_subject">Matèria</label>
+                    <label for="new-prompt-category" id="subject-label" data-i18n="prompt_cat_label">Matèria</label>
                     <select id="new-prompt-category" required>
-                        <!-- Es generen les opcions automàticament des del JS de locales -->
+                        <!-- Les opcions es generen dinàmicament des de JS -->
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="new-prompt-body" data-i18n="form.label_prompt_body">Contingut del Prompt</label>
+                    <label for="new-prompt-body" data-i18n="prompt_body_label">Contingut del Prompt</label>
                     <textarea id="new-prompt-body" required placeholder="Copia i pega ací el prompt en text pla..."></textarea>
-                    <small class="help-text" data-i18n="form.help_text_body">Important: Copia i pega el prompt strictly en text pla (sense formats de Word o HTML).</small>
+                    <small class="help-text" data-i18n="prompt_body_help">Important: Copia i pega el prompt estrictament en text pla (sense formats de Word o HTML).</small>
                 </div>
 
                 <div class="modal-actions">
-                    <button type="button" class="btn-secondary" id="btn-close-modal" data-i18n="form.btn_cancel">Cancel·lar</button>
-                    <button type="submit" class="btn-primary" data-i18n="form.btn_save_prompt">Guardar Prompt</button>
+                    <button type="button" class="btn-secondary" id="btn-close-modal" data-i18n="btn_cancel">Cancel·lar</button>
+                    <button type="submit" class="btn-primary" data-i18n="btn_save_prompt">Guardar Prompt</button>
                 </div>
             </form>
         </div>
@@ -439,10 +438,10 @@
 
     <!-- Peu de pàgina -->
     <footer>
-        <p data-i18n="instructions.footer_text">PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València</p>
+        <p data-i18n="footer_text">PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València</p>
     </footer>
 
-    <!-- Script principal definit com a MÒDUL -->
+    <!-- Script principal com a MÒDUL -->
     <script type="module" src="script.js"></script>
 </body>
 </html>
