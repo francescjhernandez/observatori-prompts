@@ -1,13 +1,14 @@
 export const ca = {
   form: {
     select_subject_placeholder: "Selecciona una matèria...",
-    label_subject: "Matèria"
+    label_subject: "Matèria",
+    btn_upload_prompts: "Pujar Prompts"
   },
   subjects: {
     history: "Història",
     geography: "Geografia",
     spanish_language: "Llengua Castellana i Literatura",
-    valencian_language: "Llengua Valenciana / Catalana i Literatura",
+    valencian_language: "Llengua Valenciana i Literatura",
     english: "Llengua Estrangera (Anglés)",
     french: "Llengua Estrangera (Francés)",
     mathematics: "Matemàtiques",
