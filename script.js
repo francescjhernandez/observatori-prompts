@@ -7,7 +7,20 @@ import { t, getSubjectOptions } from './locales/index.js';
 const SUPABASE_URL = "https://amswkfdhwashotagrhfo.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_J-PhmX7Awpb8UwDYXhYwWg_iISrccBy";
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabaseClient = null;
+
+// Inicialització en retard i segura del client Supabase per a evitar ReferenceError
+function getSupabaseClient() {
+    if (!supabaseClient) {
+        const supabaseLib = window.supabase;
+        if (supabaseLib && typeof supabaseLib.createClient === 'function') {
+            supabaseClient = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        } else {
+            console.error("El SDK de Supabase no s'ha trobat a window.supabase.");
+        }
+    }
+    return supabaseClient;
+}
 
 const formUrls = {
     ca: "https://raw.githubusercontent.com/francescjhernandez/observatori-prompts/main/formulari_context_docent_ca.txt",
@@ -38,8 +51,11 @@ function getLocalizedCategory(categoryString) {
 // ====================================================================
 
 async function fetchPromptsFromSupabase() {
+    const client = getSupabaseClient();
+    if (!client) return;
+
     try {
-        const { data, error } = await supabaseClient
+        const { data, error } = await client
             .from('prompts')
             .select('*')
             .order('created_at', { ascending: false });
@@ -83,7 +99,7 @@ function renderPrompts(promptsToRender) {
     });
 
     if (filtered.length === 0) {
-        const noResultsMsg = t('no_results', currentLang) || t('instructions.no_results', currentLang) || "No results.";
+        const noResultsMsg = t('no_results', currentLang) || t('instructions.no_results', currentLang) || "No s'han trobat resultats.";
         container.innerHTML = `<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #64748b;">${noResultsMsg}</p>`;
         return;
     }
@@ -127,10 +143,10 @@ async function copyPromptToClipboard(id) {
 
     try {
         await navigator.clipboard.writeText(prompt.body);
-        alert(t('copy_success', currentLang) || "Copiado!");
+        alert(t('copy_success', currentLang) || "Copiat!");
     } catch (err) {
         console.error("Error en copiar:", err);
-        alert(t('copy_error', currentLang) || "Error al copiar.");
+        alert(t('copy_error', currentLang) || "Error en copiar.");
     }
 }
 
@@ -151,7 +167,7 @@ function setLanguage(lang) {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const translatedText = t(key, currentLang);
-        if (translatedText) {
+        if (translatedText && translatedText !== key) {
             el.textContent = translatedText;
         }
     });
@@ -160,16 +176,16 @@ function setLanguage(lang) {
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
         const translatedPlaceholder = t(key, currentLang);
-        if (translatedPlaceholder) {
+        if (translatedPlaceholder && translatedPlaceholder !== key) {
             el.placeholder = translatedPlaceholder;
         }
     });
 
-    // D. Actualitzar el botó de la capçalera
-    const adminBtn = document.getElementById('admin-login-btn') || document.getElementById('admin-btn');
-    if (adminBtn) {
+    // D. Actualitzar el botó de la capçalera mantenint l'ícona
+    const adminBtnSpan = document.querySelector('#admin-login-btn [data-i18n], #admin-btn [data-i18n]');
+    if (adminBtnSpan) {
         const btnText = t('btn_admin', currentLang) || t('btn_upload_prompts', currentLang) || "Pujar Prompts";
-        adminBtn.innerHTML = `🔒 <span>${btnText}</span>`;
+        adminBtnSpan.textContent = btnText;
     }
 
     // E. Actualitzar opcions del desplegable de matèries
@@ -181,7 +197,7 @@ function setLanguage(lang) {
         btnForm.href = formUrls[currentLang] || formUrls['ca'];
         btnForm.setAttribute('download', `formulari_context_${currentLang}.txt`);
         const downloadText = t('btn_download', currentLang);
-        if (downloadText) {
+        if (downloadText && downloadText !== 'btn_download') {
             btnForm.textContent = `📥 ${downloadText}`;
         }
     }
@@ -250,6 +266,13 @@ function setupAdminModal() {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const client = getSupabaseClient();
+            if (!client) {
+                alert("Error de connexió amb la base de dades.");
+                return;
+            }
+
             const title = document.getElementById('new-prompt-title').value;
             const author = document.getElementById('new-prompt-author').value;
             const category = document.getElementById('new-prompt-category').value;
@@ -262,14 +285,14 @@ function setupAdminModal() {
                 content: body 
             };
 
-            const { data, error } = await supabaseClient
+            const { data, error } = await client
                 .from('prompts')
                 .insert([newPrompt])
                 .select();
 
             if (error) {
                 console.error("Error detallat de Supabase:", error);
-                alert("Error al guardar el prompt a la base de dades.");
+                alert("Error en guardar el prompt a la base de dades.");
                 return;
             }
 
