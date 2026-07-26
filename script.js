@@ -50,7 +50,6 @@ async function fetchPromptsFromSupabase() {
         }
 
         if (data && data.length > 0) {
-            // Mapegem 'content' a 'body' internament per mantenir la compatibilitat del renderitzat
             promptsData = data.map(item => ({
                 ...item,
                 body: item.content || item.body
@@ -84,13 +83,13 @@ function renderPrompts(promptsToRender) {
     });
 
     if (filtered.length === 0) {
-        const noResultsMsg = t('instructions.no_results', currentLang) || "No results.";
+        const noResultsMsg = t('no_results', currentLang) || t('instructions.no_results', currentLang) || "No results.";
         container.innerHTML = `<p class="no-results" style="grid-column: 1/-1; text-align: center; color: #64748b;">${noResultsMsg}</p>`;
         return;
     }
 
-    const copyBtnText = t('form.btn_copy', currentLang) || "📋 Copiar Prompt";
-    const authorLabel = t('form.by_author', currentLang) || "Autor/a:";
+    const copyBtnText = t('btn_copy', currentLang) || "📋 Copiar Prompt";
+    const authorLabel = t('by_author', currentLang) || "Autor/a:";
 
     container.innerHTML = filtered.map(prompt => {
         const promptAuthor = prompt.author || prompt.autor;
@@ -114,7 +113,6 @@ function renderPrompts(promptsToRender) {
         `;
     }).join('');
 
-    // Reassignar esdeveniments de còpia als botons generats
     container.querySelectorAll('.btn-copy').forEach(btn => {
         btn.addEventListener('click', () => {
             const id = btn.getAttribute('data-id');
@@ -129,15 +127,15 @@ async function copyPromptToClipboard(id) {
 
     try {
         await navigator.clipboard.writeText(prompt.body);
-        alert(t('form.copy_success', currentLang) || "Copiado!");
+        alert(t('copy_success', currentLang) || "Copiado!");
     } catch (err) {
         console.error("Error en copiar:", err);
-        alert(t('form.copy_error', currentLang) || "Error al copiar.");
+        alert(t('copy_error', currentLang) || "Error al copiar.");
     }
 }
 
 // ====================================================================
-// GESTIÓ D'IDIOMES (SISTEMA LOCALES)
+// GESTIÓ D'IDIOMES
 // ====================================================================
 
 function setLanguage(lang) {
@@ -152,71 +150,60 @@ function setLanguage(lang) {
     // B. Actualitzar elements amb atribut data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        el.textContent = t(key, currentLang);
+        const translatedText = t(key, currentLang);
+        if (translatedText) {
+            el.textContent = translatedText;
+        }
     });
 
     // C. Actualitzar placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        el.placeholder = t(key, currentLang);
+        const translatedPlaceholder = t(key, currentLang);
+        if (translatedPlaceholder) {
+            el.placeholder = translatedPlaceholder;
+        }
     });
 
-    // D. Actualitzar el botó de la capçalera (Pujar Prompts)
+    // D. Actualitzar el botó de la capçalera
     const adminBtn = document.getElementById('admin-login-btn') || document.getElementById('admin-btn');
     if (adminBtn) {
-        adminBtn.innerHTML = `🔒 ${t('form.btn_upload_prompts', currentLang)}`;
+        const btnText = t('btn_admin', currentLang) || t('btn_upload_prompts', currentLang) || "Pujar Prompts";
+        adminBtn.innerHTML = `🔒 <span>${btnText}</span>`;
     }
 
-    // E. Actualitzar bloc d'instruccions
-    const instrTitle = document.getElementById('instructions-title');
-    const instrStep1 = document.getElementById('instructions-step-1');
-    const instrStep2 = document.getElementById('instructions-step-2');
-    const instrStep3 = document.getElementById('instructions-step-3');
-    const instrNote = document.getElementById('instructions-note') || document.getElementById('upload-instruction-note');
-
-    if (instrTitle) instrTitle.textContent = t('instructions.title', currentLang);
-    if (instrStep1) instrStep1.textContent = t('instructions.step1', currentLang);
-    if (instrStep2) instrStep2.textContent = t('instructions.step2', currentLang);
-    if (instrStep3) instrStep3.textContent = t('instructions.step3', currentLang);
-    if (instrNote) instrNote.textContent = t('instructions.upload_note', currentLang);
-
-    // F. Actualitzar l'etiqueta i el <select> de les matèries del formulari
-    const subjectLabel = document.getElementById('subject-label');
-    if (subjectLabel) {
-        subjectLabel.textContent = t('form.label_subject', currentLang);
-    }
+    // E. Actualitzar opcions del desplegable de matèries
     updateSubjectDropdown();
 
-    // G. Actualitzar enllaç de descàrrega del formulari de context
+    // F. Actualitzar enllaç de descàrrega del formulari de context
     const btnForm = document.getElementById('btn-download-form');
     if (btnForm) {
         btnForm.href = formUrls[currentLang] || formUrls['ca'];
         btnForm.setAttribute('download', `formulari_context_${currentLang}.txt`);
+        const downloadText = t('btn_download', currentLang);
+        if (downloadText) {
+            btnForm.textContent = `📥 ${downloadText}`;
+        }
     }
 
     localStorage.setItem('preferred_lang', currentLang);
     renderPrompts(promptsData);
 }
 
-/**
- * Regenera les opcions del select de matèries dinàmicament segons l'idioma
- */
 function updateSubjectDropdown() {
-    const subjectSelect = document.getElementById('new-prompt-category') || document.getElementById('subject-select');
+    const subjectSelect = document.getElementById('new-prompt-category');
     if (!subjectSelect) return;
 
     const selectedValue = subjectSelect.value;
     subjectSelect.innerHTML = '';
 
-    // Opció per defecte
     const defaultOption = document.createElement('option');
     defaultOption.value = '';
-    defaultOption.textContent = t('form.select_subject_placeholder', currentLang);
+    defaultOption.textContent = t('select_category_default', currentLang) || "-- Selecciona una opció --";
     defaultOption.disabled = true;
     defaultOption.selected = !selectedValue;
     subjectSelect.appendChild(defaultOption);
 
-    // Carregar matèries des de locales/index.js
     const subjects = getSubjectOptions(currentLang);
 
     subjects.forEach((subject) => {
@@ -268,7 +255,6 @@ function setupAdminModal() {
             const category = document.getElementById('new-prompt-category').value;
             const body = document.getElementById('new-prompt-body').value;
 
-            // Enviem 'content' en lloc de 'body' per adaptar-nos a la taula de Supabase
             const newPrompt = { 
                 title: title, 
                 author: author, 
@@ -282,7 +268,7 @@ function setupAdminModal() {
                 .select();
 
             if (error) {
-                console.error("Error detallat de Supabase:", error.message, error.details, error.hint);
+                console.error("Error detallat de Supabase:", error);
                 alert("Error al guardar el prompt a la base de dades.");
                 return;
             }
@@ -314,20 +300,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     setupAdminModal();
 
-    // Assignar esdeveniments de canvi d'idioma
     document.getElementById('btn-es')?.addEventListener('click', () => setLanguage('es'));
     document.getElementById('btn-ca')?.addEventListener('click', () => setLanguage('ca'));
     document.getElementById('btn-pt')?.addEventListener('click', () => setLanguage('pt'));
     document.getElementById('btn-en')?.addEventListener('click', () => setLanguage('en'));
 
-    document.getElementById('btn-lang-es')?.addEventListener('click', () => setLanguage('es'));
-    document.getElementById('btn-lang-ca')?.addEventListener('click', () => setLanguage('ca'));
-    document.getElementById('btn-lang-pt')?.addEventListener('click', () => setLanguage('pt'));
-    document.getElementById('btn-lang-en')?.addEventListener('click', () => setLanguage('en'));
-
     document.getElementById('search-input')?.addEventListener('input', () => renderPrompts(promptsData));
 
-    // Carregar idioma i prompts inicials
     setLanguage(initialLang);
     await fetchPromptsFromSupabase();
 });
