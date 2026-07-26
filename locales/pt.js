@@ -1,16 +1,36 @@
 export const pt = {
+  header_title: "Observatório de Igualdade Educativa Inclusivo",
   form: {
+    admin_panel_title: "Painel de Gestão de Prompts",
+    prompt_title_label: "Título do Prompt",
+    prompt_author_label: "Nome da pessoa que envia o prompt",
+    prompt_cat_label: "Disciplina",
+    prompt_body_label: "Conteúdo do Prompt",
+    prompt_body_help: "Importante: Copie e cole o prompt estritamente em texto simples (sem formatação do Word ou HTML).",
+    btn_cancel: "Cancelar",
+    btn_save_prompt: "Salvar Prompt",
     select_subject_placeholder: "Selecione uma disciplina...",
     label_subject: "Disciplina",
-    btn_upload_prompts: "Carregar Prompts"
+    btn_upload_prompts: "Enviar Prompts"
   },
   instructions: {
     title: "PARA USAR OS PROMPTS DESTE REPOSITÓRIO, VOCÊ DEVE:",
-    step1: "Baixar e preencher o formulário.",
-    step2: "Baixar ou copiar o prompt.",
-    step3: "Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    upload_note: "Se você quiser enviar um prompt para a plataforma, use o botão «Carregar Prompts» e preencha o formulário."
+    step_1: "Baixar e preencher o formulário.",
+    step_2: "Baixar ou copiar o prompt.",
+    step_3: "Inserir o prompt e o formulário em uma IA (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    upload_note: "Se você deseja enviar um prompt para a plataforma, use o botão «Enviar Prompts» e preencha o formulário.",
+    download_form: "Baixar formulário de contexto",
+    search_placeholder: "Buscar prompts por palavra-chave, disciplina, nível...",
+    header_title: "Observatório de Igualdade Educativa Inclusivo",
+    upload_btn: "Enviar Prompts",
+    no_results: "Nenhum resultado encontrado."
   },
+  btn_copy: "📋 Copiar Prompt",
+  by_author: "Autor/a:",
+  copy_success: "Copiado para a área de transferência!",
+  copy_error: "Erro ao copiar o texto.",
+  select_category_default: "-- Selecione uma opção --",
+  footer_text: "PROJETO OBSERVATÓRIO DE IGUALDADE EDUCATIVA INCLUSIVO © 2026 — Universidade de Valência",
   subjects: {
     history: "História",
     geography: "Geografia",
