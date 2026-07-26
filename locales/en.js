@@ -1,16 +1,36 @@
 export const en = {
+  header_title: "Inclusive Educational Equality Observatory",
   form: {
+    admin_panel_title: "Prompt Management Panel",
+    prompt_title_label: "Prompt Title",
+    prompt_author_label: "Name of the person uploading the prompt",
+    prompt_cat_label: "Subject",
+    prompt_body_label: "Prompt Content",
+    prompt_body_help: "Important: Copy and paste the prompt strictly in plain text (no Word or HTML formatting).",
+    btn_cancel: "Cancel",
+    btn_save_prompt: "Save Prompt",
     select_subject_placeholder: "Select a subject...",
     label_subject: "Subject",
     btn_upload_prompts: "Upload Prompts"
   },
   instructions: {
     title: "TO USE THE PROMPTS IN THIS REPOSITORY, YOU MUST:",
-    step1: "Download and fill out the form.",
-    step2: "Download or copy the prompt.",
-    step3: "Insert the prompt and the form into an AI (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
-    upload_note: "If you want to submit a prompt to the platform, use the «Upload Prompts» button and fill out the form."
+    step_1: "Download and fill out the form.",
+    step_2: "Download or copy the prompt.",
+    step_3: "Insert the prompt and the form into an AI (ChatGPT, Claude, DeepSeek, Gemini, etc.).",
+    upload_note: "If you want to submit a prompt to the platform, use the «Upload Prompts» button and fill out the form.",
+    download_form: "Download context form",
+    search_placeholder: "Search prompts by keyword, subject, level...",
+    header_title: "Inclusive Educational Equality Observatory",
+    upload_btn: "Upload Prompts",
+    no_results: "No prompts found matching your criteria."
   },
+  btn_copy: "📋 Copy Prompt",
+  by_author: "Author:",
+  copy_success: "Copied to clipboard!",
+  copy_error: "Error copying text.",
+  select_category_default: "-- Select an option --",
+  footer_text: "INCLUSIVE EDUCATIONAL EQUALITY OBSERVATORY PROJECT © 2026 — University of Valencia",
   subjects: {
     history: "History",
     geography: "Geography",
