@@ -346,6 +346,18 @@
             color: #64748b;
             border-top: 1px solid var(--border-color);
             background: white;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -411,7 +423,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="new-prompt-author" data-i18n="prompt_author_label">Nom de la persona que carregar el prompt</label>
+                    <label for="new-prompt-author" data-i18n="prompt_author_label">Nom de la persona que carrega el prompt</label>
                     <input type="text" id="new-prompt-author" required placeholder="Nom i cognoms">
                 </div>
 
@@ -439,6 +451,7 @@
     <!-- Peu de pàgina -->
     <footer>
         <p data-i18n="footer_text">PROJECTE OBSERVATORI D'IGUALTAT EDUCATIVA INCLUSIU © 2026 — Universitat de València</p>
+        <p><span data-i18n="support_label">Suport i contacte:</span> <a href="mailto:equaledusupport@gmail.com">equaledusupport@gmail.com</a></p>
     </footer>
 
     <!-- Script principal com a MÒDUL -->
